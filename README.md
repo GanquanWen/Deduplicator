@@ -1,0 +1,3 @@
+# Deduplicator
+
+Tkinter for GUI
