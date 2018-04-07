@@ -18,6 +18,8 @@ def retrieve(file, path):
 		line = f.readline()
 	f.close()
 
+	'''retrieve each part of the original article by the hash
+	   connect them to make a string'''
 	original_file = ""
 	for part in parts_list:
 		part_file = open(path+'example/'+part+'.txt', "r")
@@ -25,9 +27,10 @@ def retrieve(file, path):
 		while line:
 			original_file += line
 			line = part_file.readline()
-		original_file += '\n'
+		original_file += '\n'  # adding a blank line between each part
 		part_file.close()
 
+	'''store the article as txt file'''
 	output_file = open(path+'org_'+file, "w")
 	output_file.write(original_file)
 	output_file.close()
