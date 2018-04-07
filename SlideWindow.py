@@ -20,3 +20,5 @@ def binary_chunk(file_name):
             
 def insert(original,new,position):
     return original[:position] + new + original[position+1:]
+
+binary_chunk('test2_binary.txt')
