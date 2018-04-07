@@ -1,3 +1,3 @@
 # Deduplicator
-#EC504Project
+# EC504 Project
 Tkinter for GUI
