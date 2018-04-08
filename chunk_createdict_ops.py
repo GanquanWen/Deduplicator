@@ -39,7 +39,7 @@ def chunk_and_renew_dict(filename, step, dic, path):
         if hashtmp in dic:
             dic[hashtmp][1].append(filename)
         else:
-            chunkname = hashtmp + ('.txt')
+            chunkname = path + hashtmp + ('.txt')
             dic[hashtmp] = [path,[filename]]
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
@@ -49,5 +49,5 @@ def chunk_and_renew_dict(filename, step, dic, path):
 #run:
 '''
 dic={}
-a=chunk_and_renew_dict('file1.txt',10,dic,'/Users/jxtang/Desktop/EC 504 project/new/Deduplicator')
+a=chunk_and_renew_dict('file1.txt',10,dic,'')
 '''
