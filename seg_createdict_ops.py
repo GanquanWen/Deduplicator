@@ -12,7 +12,7 @@ def para_hash(string):
 #    key:hash code of this segment(filename)
 #    value:[0]location, [1]:a list contains its childs(aka raw filenames contain this paragraph)
 #This function returns a list that contains all hash code of this article
-def chunk_and_renew_dict(filename, step, dic, path):
+def segment_create_dict(filename, step, dic, path):
     '''
     read from file
     create and renew the dictionary
@@ -49,5 +49,5 @@ def chunk_and_renew_dict(filename, step, dic, path):
 #run:
 '''
 dic={}
-a=chunk_and_renew_dict('file1.txt',10,dic,'')
+a=segment_create_dict('file1.txt',10,dic,'')
 '''
