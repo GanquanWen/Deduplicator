@@ -29,6 +29,8 @@ def main():
 		[0] is the command;
 		[2] is the name of the file;
 		[4] is the path to the locker.'''
+		print ('Format of Input: command -file ["filename"] -path ["path_to_locker"]')
+		print ('(no space in ["filename"] and ["path_to_locker"])')
 		command = sys.stdin.readline()
 		command = cli(command)
 		print command
