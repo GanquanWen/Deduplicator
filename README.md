@@ -20,17 +20,24 @@
 ## Project Description :
 :new_moon: The aim :golf: of the project：
        
-   * Be familiar with **software code management** using Github
+   * Design and implement an efficient data storage locker that utilizes deduplication.
              
-   * Practice **Agile software development [(Scrum)](https://en.wikipedia.org/wiki/Scrum_(software_development))** with a colleague
+   * Locker should be able to receive files and store them (for later retrieval) with a minimum storage by storing some common data blocks only once.
    
-:waxing_crescent_moon: The project is based on    :link:**[OpenCV: Open Source Computer Version library](https://github.com/opencv/opencv)** and utilizing C++ programming language.
+:waxing_crescent_moon: The project is based on    :**Python 3**
+:first_quarter_moon: Our project will implement:
 
-:first_quarter_moon: Some samples are picked from the OpenCV **[Samples folder :briefcase:](https://github.com/opencv/opencv/tree/master/samples)** in order to conducting the Homework(i.e. practice Pull, Push, Branching, Merging and Conflict resolutions), [create_mask.cpp](https://github.com/opencv/opencv/blob/master/samples/cpp/create_mask.cpp) for instance.
+   * ASCII and Binary file storage and retrieve.
+   
+   * Retrieve all files stored in the locker in any order and at any time.
+   
+   * Graphic User Interface by package tkinter in python
+   
+   * File deletion without influncing other files.
   
-:waxing_gibbous_moon: The modification on the code can be found by pressing the **"history"** tab in each C++ file.
+:waxing_gibbous_moon: 
        
-:full_moon: Here is a **comparison** of the outputs before and after modifying the code:
+:full_moon: 
    
    **Before modifying the code: :point_down:  After modifying the code: :point_down:**
    
