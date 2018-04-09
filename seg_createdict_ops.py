@@ -46,8 +46,14 @@ def segment_create_dict(filename, step, dic, path):
             text_file.close()
     return article_hash_lst
 
-#run:
-'''
-dic={}
-a=segment_create_dict('file1.txt',10,dic,'')
-'''
+#test:
+def main():
+    dic={}
+    segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
+    print(dic)
+
+if __name__ == '__main__':
+    main()
+
