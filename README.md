@@ -36,10 +36,7 @@
    * Graphic User Interface by package tkinter in python
    
    * File deletion without influncing other files.
-  
-:waxing_gibbous_moon: 
-       
-:full_moon: 
+
    
 
 
