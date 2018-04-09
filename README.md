@@ -9,7 +9,7 @@
   
   :boy: **Jiaxin Tang** jxtang@bu.edu   :point_right:[@github/jxtang0920](https://github.com/jxtang0920)
   
-  :boy: **Wengan Quan** wengq@bu.edu   :point_right:[@github/GanquanWen](https://github.com/GanquanWen)
+  :boy: **Ganquan Wen** wengq@bu.edu   :point_right:[@github/GanquanWen](https://github.com/GanquanWen)
   
   :boy: **Xiang Zheng** zhengx95@bu.edu   :point_right:[@github/XiangZheng2017](https://github.com/XiangZheng2017)
   
