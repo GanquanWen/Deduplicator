@@ -43,24 +43,22 @@
    
 
 
-## Instruction :laughing:
+## Algorithm:
 
-#### Prerequesite and installation :open_mouth:
-* In order to run the code, **the OpenCV must be installed on your computer firstly**. 
+#### Variable sized chunking for ASCII and Binary files :
+* Fixed-size chunking method splits files into equally sized chunks. As it splits the file into fixed size, byte shifting problem occurs for the altered file. If the bytes are inserted or deleted on the file, it changes all subsequent chunk position which results in duplicate index values. So, fixed-size block chunking has an issue when it comes to finding matching contents in similar files when the content at the beginning of the files is changed. 
   
-* The team chose the **Windows 10** as the OS, **Visual Studio 2015** as the IDE and utilized the **C++** programming language.
+* So we use variable sized chuncking. For ASCII file, we segment file by paragraph; for Binary file, we use sliding window.
   
-* However, the choice of OS and IDE are subject to users, **the users could choose OS and IDE they preferred**.
+* 
   
 * There are many tutorials available online for installing OpenCV on your computer, the user could find a suitable one and follow the instructions to install OpenCV on computers.
 
-#### Run the code :relieved:
-* After installing the OpenCV，the users could **download the modified code from our repository**.
-  
-* Then, add the code into your project. If the program need a input diagram, the users could download [**Lenna.png**](https://github.com/qinjinjia/ec601_ass1/blob/master/original.png) from our repository and add it into your project folder.
+#### High-level Diagram:
+
   
 
-#### Enjoy the code and have fun!:wink::wink:
+#### Enjoy the code and have fun!:
 
 :beers::beers::beers:
 
