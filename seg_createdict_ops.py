@@ -47,6 +47,7 @@ def segment_create_dict(filename, step, dic, path):
     return article_hash_lst
 
 #test:
+#test was done in folder:seg_createdict_ops
 def main():
     dic={}
     segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
