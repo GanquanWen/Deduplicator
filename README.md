@@ -1,33 +1,33 @@
 # Deduplicator EC504 Project
 ## Brief Introduction :
   
-  This is the page for **EC504(Spring 2018) Deduplicator project** 
+  This repository is for **EC504(Spring 2018) Deduplicator project** 
   
-  We have five members:
+  Our team members:
   
-  :boy: **Zisen Zhou** jason826@bu.edu   :point_right:[@github/JasonZ82](https://github.com/JasonZ82)
+   **Zisen Zhou** jason826@bu.edu   :point_right:[@github/JasonZ82](https://github.com/JasonZ82)
   
-  :boy: **Jiaxin Tang** jxtang@bu.edu   :point_right:[@github/jxtang0920](https://github.com/jxtang0920)
+   **Jiaxin Tang** jxtang@bu.edu   :point_right:[@github/jxtang0920](https://github.com/jxtang0920)
   
-  :boy: **Ganquan Wen** wengq@bu.edu   :point_right:[@github/GanquanWen](https://github.com/GanquanWen)
+   **Ganquan Wen** wengq@bu.edu   :point_right:[@github/GanquanWen](https://github.com/GanquanWen)
   
-  :boy: **Xiang Zheng** zhengx95@bu.edu   :point_right:[@github/XiangZheng2017](https://github.com/XiangZheng2017)
+   **Xiang Zheng** zhengx95@bu.edu   :point_right:[@github/XiangZheng2017](https://github.com/XiangZheng2017)
   
-  :boy: **Zulin Liu** liuzulin@bu.edu   :point_right:[@github/liuzulin](https://github.com/liuzulin)
+   **Zulin Liu** liuzulin@bu.edu   :point_right:[@github/liuzulin](https://github.com/liuzulin)
   
-  :mailbox_closed:Please feel free to contact us, if you have any suggestions or concerns. 
+  If you have any suggestions or concerns, feel free to contact us.
   
 ## Project Description :
 
-:new_moon: The aim :golf: of the project：
+The aim of the project：
        
    * Design and implement an efficient data storage locker that utilizes deduplication.
              
    * Locker should be able to receive files and store them (for later retrieval) with a minimum storage by storing some common data blocks only once.
    
-:waxing_crescent_moon: The project is based on    :**Python 3**
+The project is based on    :**Python 3**
 
-:first_quarter_moon: Our project will implement:
+Our project will implement:
 
    * ASCII and Binary file storage and retrieve.
    
