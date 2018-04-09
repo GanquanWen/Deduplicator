@@ -53,10 +53,4 @@
 
 #### Enjoy the code and have fun!:
 
-:beers::beers::beers:
-
-## More Links :link: 
-   #### Trello: https://trello.com/b/4fbOJMFC/buec601a1team10hw1
-
-:trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface::trollface:
 
