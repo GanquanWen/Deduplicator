@@ -21,11 +21,11 @@
 
 The aim of the project：
        
-   * Design and implement an efficient data storage locker that utilizes deduplication.
+   * Design and implement an efficient data storage structure that utilizes deduplication.
              
-   * Locker should be able to receive files and store them (for later retrieval) with a minimum storage by storing some common data blocks only once.
+   * Lockers should be able to receive files and store them (for later retrieval) with a minimum storage by storing some common data blocks only once.
    
-The project is based on    :**Python 3**
+The project is based on   :**Python 3**
 
 Our project will implement:
 
@@ -35,7 +35,7 @@ Our project will implement:
    
    * Graphic User Interface by package tkinter in python
    
-   * File deletion without influncing other files.
+   * File deletion without influencing other files.
 
    
 
@@ -51,6 +51,6 @@ Our project will implement:
 
   https://raw.githubusercontent.com/GanquanWen/Deduplicator/master/Algorithm.PNG
 
-#### Enjoy the code and have fun!:
+#### Thanks for coming!
 
 
