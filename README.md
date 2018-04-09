@@ -2,7 +2,6 @@
 ## Brief Introduction :
   
   This is the page for **EC504(Spring 2018) Deduplicator project** 
-  [@github/buec601a1team10](https://github.com/orgs/buec601a1team10/dashboard)
   
   We have five members:
   
