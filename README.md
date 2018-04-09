@@ -50,13 +50,9 @@
   
 * So we use variable sized chuncking. For ASCII file, we segment file by paragraph; for Binary file, we use sliding window.
   
-* 
-  
-* There are many tutorials available online for installing OpenCV on your computer, the user could find a suitable one and follow the instructions to install OpenCV on computers.
-
 #### High-level Diagram:
 
-  
+  https://raw.githubusercontent.com/GanquanWen/Deduplicator/master/Algorithm.PNG
 
 #### Enjoy the code and have fun!:
 
