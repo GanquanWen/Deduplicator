@@ -18,6 +18,7 @@
   :mailbox_closed:Please feel free to contact us, if you have any suggestions or concerns. 
   
 ## Project Description :
+
 :new_moon: The aim :golf: of the project：
        
    * Design and implement an efficient data storage locker that utilizes deduplication.
@@ -25,6 +26,7 @@
    * Locker should be able to receive files and store them (for later retrieval) with a minimum storage by storing some common data blocks only once.
    
 :waxing_crescent_moon: The project is based on    :**Python 3**
+
 :first_quarter_moon: Our project will implement:
 
    * ASCII and Binary file storage and retrieve.
@@ -39,9 +41,7 @@
        
 :full_moon: 
    
-   **Before modifying the code: :point_down:  After modifying the code: :point_down:**
-   
-<img src="https://github.com/qinjinjia/ec601_ass1/blob/master/original.png" width="300" height="300">               <img src="https://github.com/qinjinjia/ec601_ass1/blob/master/processed.png" width="300" height="300">
+
 
 ## Instruction :laughing:
 
