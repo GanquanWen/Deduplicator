@@ -78,7 +78,7 @@ class Application(Frame):
         start(99)
         messagebox.showinfo('Message','Retrieve file ' + name+ ' from locker '+ locker)
 app = Application()
-app.master.title('Deduplifator')
+app.master.title('Deduplicator')
 app.master.maxsize(1000,1000)
 app.master.minsize(500,300)
 app.mainloop()
