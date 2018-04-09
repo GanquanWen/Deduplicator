@@ -2,15 +2,18 @@ from tkinter import *
 from tkinter import messagebox
 import time
 #import tkMessageBox
+#Test function for progress bar
 def start(rangeValue):
     for i in range(rangeValue+1):  
         time.sleep(0.01)  
         app.change_schedule(i,rangeValue)
 class Application(Frame):
+    #Initial function
     def __init__(self,master=None):
         Frame.__init__(self, master)
         self.pack()
         self.createWidgets()
+    #Function to add all widgets
     def createWidgets(self):
         self.helloLabel = Label(self, text='Welcom to our Locker system!')
         self.helloLabel.grid(row = 0,column = 0)
@@ -32,6 +35,7 @@ class Application(Frame):
         self.quitbutton.grid(row = 8,column = 0)
         self.canvas = Canvas(self,width = 120,height = 30,bg = "white")
         self.canvas.grid(row = 10,column = 0)
+    #Function to refresh Progressbar
     def change_schedule(self,now_schedule,all_schedule):
         x=StringVar()
         self.canvasLabel = Label(self,textvariable = x)
@@ -43,6 +47,7 @@ class Application(Frame):
         x.set(str(round(now_schedule/all_schedule*100,2)) + '%')  
         if round(now_schedule/all_schedule*100,2) == 100.00:
             x.set("Finish")
+    #Delete Function
     def delete(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please Enter the File Name")
         if name !=self.nameInput.get():
@@ -52,6 +57,7 @@ class Application(Frame):
             return 0
         start(99)
         messagebox.showinfo('Message', 'Delete file '+ name +' from locker '+ locker)
+    #Insert Function
     def insert(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please Enter the File Name")
         if name !=self.nameInput.get():
@@ -61,6 +67,7 @@ class Application(Frame):
             return 0
         start(99)
         messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker)
+    #Retrieve Function
     def retrieve(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please Enter the File Name")
         if name !=self.nameInput.get():
@@ -71,13 +78,7 @@ class Application(Frame):
         start(99)
         messagebox.showinfo('Message','Retrieve file ' + name+ ' from locker '+ locker)
 app = Application()
-app.master.title('Hello World')
+app.master.title('Deduplifator')
 app.master.maxsize(1000,1000)
 app.master.minsize(500,300)
 app.mainloop()
-
-'''
-messagebox.showerror("Error", "Error message")
-messagebox.showwarning("Warning","Warning message")
-messagebox.showinfo("Information","Informative message")
-'''
