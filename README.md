@@ -1,8 +1,7 @@
 # Deduplicator EC504 Project
 ## Brief Introduction :
-  Hello Everyone! :trollface::trollface::trollface::trollface:
   
-  This is the page for **EC504(Spring 2018)** 
+  This is the page for **EC504(Spring 2018) Deduplicator project** 
   [@github/buec601a1team10](https://github.com/orgs/buec601a1team10/dashboard)
   
   We have five members:
@@ -13,7 +12,7 @@
   
   :boy: **Wengan Quan** wengq@bu.edu   :point_right:[@github/GanquanWen](https://github.com/GanquanWen)
   
-  :boy: **Xiang Zheng** zhengx95@@bu.edu   :point_right:[@github/XiangZheng2017](https://github.com/XiangZheng2017)
+  :boy: **Xiang Zheng** zhengx95@bu.edu   :point_right:[@github/XiangZheng2017](https://github.com/XiangZheng2017)
   
   :boy: **Zulin Liu** liuzulin@bu.edu   :point_right:[@github/liuzulin](https://github.com/liuzulin)
   
