@@ -48,8 +48,7 @@ Our project will implement:
 * So we use variable sized chuncking. For ASCII file, we segment file by paragraph; for Binary file, we use sliding window.
   
 #### High-level Diagram:
-
-  https://raw.githubusercontent.com/GanquanWen/Deduplicator/master/Algorithm.PNG
+![image](https://raw.githubusercontent.com/GanquanWen/Deduplicator/master/Algorithm.PNG)
 
 #### Thanks for coming!
 
