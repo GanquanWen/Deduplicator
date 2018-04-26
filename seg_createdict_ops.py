@@ -49,7 +49,7 @@ def segment_create_dict(filename, step, dic, path):
     #create artile list file
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
-    article_hash_lst_file.write(str(article_hash_lst))
+    article_hash_lst_file.write(str(article_hash_lst).strip('[').strip(']'))
     return article_hash_lst
 
 #test:
