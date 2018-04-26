@@ -1,4 +1,5 @@
 import hashlib
+import os
 #hash the given string
 def para_hash(string):
     h=hashlib.sha256()
@@ -40,10 +41,15 @@ def segment_create_dict(filename, step, dic, path):
             dic[hashtmp][1].append(filename)
         else:
             chunkname = path + hashtmp + ('.txt')
+            
             dic[hashtmp] = [path,[filename]]
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
             text_file.close()
+    #create artile list file
+    article_hash_lst_filename = path+'list_'+os.path.basename(filename)
+    article_hash_lst_file=open(article_hash_lst_filename,'w')
+    article_hash_lst_file.write(str(article_hash_lst))
     return article_hash_lst
 
 #test:
@@ -51,10 +57,13 @@ def segment_create_dict(filename, step, dic, path):
 def main():
     dic={}
     segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
-    print(dic)
+    #segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
+    #segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
+    #print(dic)
 
 if __name__ == '__main__':
     main()
+    
+
+
 
