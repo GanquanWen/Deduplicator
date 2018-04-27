@@ -38,11 +38,11 @@ def segment_create_dict(filename, step, dic, path):
         hashtmp = para_hash(hashstr)
         article_hash_lst.append(hashtmp)
         if hashtmp in dic:
-            dic[hashtmp][1].append(filename)
+            dic[hashtmp].append(os.path.basename(filename))
         else:
             chunkname = path + hashtmp + ('.txt')
             
-            dic[hashtmp] = [path,[filename]]
+            dic[hashtmp] = [os.path.basename(filename)]
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
             text_file.close()
