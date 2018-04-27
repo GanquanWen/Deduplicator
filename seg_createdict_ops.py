@@ -24,6 +24,10 @@ def segment_create_dict(filename, step, dic, path):
         data = myfile.read()
     tmp = data.split('\n\n')
     length = len(tmp)
+    if length < 1000:
+        step = 1
+    else:
+        step = length//1000
     for i in range(0,length,step):
         tmp2 = ''
         if i + step < length:
@@ -56,9 +60,9 @@ def segment_create_dict(filename, step, dic, path):
 #test was done in folder:seg_createdict_ops
 def main():
     dic={}
-    segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
     Inven_dic=open('Inven_dic.txt','w')
     for key in dic:
         info="{} ".format(key)
