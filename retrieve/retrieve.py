@@ -10,28 +10,30 @@ def retrieve(file, path):
 	'''
 	f = open(path+file, "r")
 	line = f.readline()
-	parts_list = []
-	while line:
-		line = line.rstrip("\n")  # delete the \n at the end of each line
-		parts_list.append(line)
-		print line
-		line = f.readline()
 	f.close()
+	org_list = line.split(", ")
+	parts_list = []
+	for n in range(len(org_list)):
+		parts_list.append(org_list[n].strip("\'"))
+	print(parts_list)
 
 	'''retrieve each part of the original article by the hash
 	   connect them to make a string'''
+
 	original_file = ""
-	for part in parts_list:
-		part_file = open(path+'example/'+part+'.txt', "r")
+	for i in range(len(parts_list)):
+		part_file = open(path+parts_list[i]+'.txt', "r")
 		line = part_file.readline()
 		while line:
 			original_file += line
 			line = part_file.readline()
-		original_file += '\n'  # adding a blank line between each part
+		if i < len(parts_list)-1:
+			original_file += '\n\n'  # adding a blank line between each part
 		part_file.close()
 
 	'''store the article as txt file'''
-	output_file = open(path+'org_'+file, "w")
+	file_name = file.lstrip('list_')
+	output_file = open(path + file_name, "w")
 	output_file.write(original_file)
 	output_file.close()
 
@@ -39,9 +41,9 @@ def retrieve(file, path):
 
 
 def main():
-	file = 'file_a.txt'
-	path = ''
-	print retrieve(file, path)
+	file = 'list_org_file_a.txt'
+	path = 'test/'
+	print(retrieve(file, path))
 
 
 if __name__ == '__main__':
