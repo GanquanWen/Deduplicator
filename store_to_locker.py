@@ -6,19 +6,24 @@ def is_binary(s):
 		return True
 	except:
 		return False
-def binary_chunk(s,step,dic,path,filename):
+def binary_chunk(s,dic,path,filename):
 	articlelist = []
-	cnt=0
-	offset=0
-	window_length=10000
-	ori=s
-	psed_para=[]
+	#psed_para=[]
+	size = len(s)
+	if size < 100000:
+		window_length = size // 10
+		step = max(1,size // 10000)
+		pattern = '101'
+	else:    
+		window_length = 10000
+		step = size // 100000
+		pattern = '101010'
 	for i in range(0,len(s),step):
-		window_content=s[i:i+window_length]
-		slide_step=6
-		if window_content[-slide_step:]=='010101':
+		window_content = s[i:i+window_length]
+		slide_step = len(pattern)
+		if window_content[-slide_step:] == '010101':
 			hashtemp = hash(window_content)
-			print(hashtemp)
+			#print(hashtemp)
 			articlelist.append(hashtemp)
 			if hashtemp in dic:
 				dic[hashtemp][1].append(filename)
@@ -90,7 +95,8 @@ def main():
 	f= open(filename,'r') 
 	s= f.read()
 	if is_binary(s):
-		binary_chunk(s,30,dic,path,filename)
+		#binary_chunk(s,30,dic,path,filename)
+		binary_chunk(s,dic,path,filename)
 	else:
 		seg_createdict_ops(s,dic,path,filename)
 main()
