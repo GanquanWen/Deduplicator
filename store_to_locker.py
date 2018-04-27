@@ -40,7 +40,7 @@ def binary_chunk(s,step,dic,path,filename):
 	# new_file = open('ec504_sample_file/binaryA.txt', "w")
 	# new_file.write(ori)
 	# new_file.close()
-def segment_create_dict(s,step,dic,path,filename):
+def segment_create_dict(s,dic,path,filename):
 	'''
 	read from file
 	create and renew the dictionary
@@ -49,6 +49,10 @@ def segment_create_dict(s,step,dic,path,filename):
 	article_hash_lst = []
 	tmp = s.split('\n\n')
 	length = len(tmp)
+	if length < 1000:
+			step = 1
+	else:
+		step = length//1000
 	for i in range(0,length,step):
 		tmp2 = ''
 		if i + step < length:
@@ -81,12 +85,12 @@ def hash(chunk):
 	return hashtmp
 def main():
 	dic = {}
-	filename = 'ec504_sample_file/binary2.txt'
-	path = 'output/Lockers/'
+	filename = 'test1_binary.txt'
+	path = 'output/'
 	f= open(filename,'r') 
 	s= f.read()
 	if is_binary(s):
 		binary_chunk(s,30,dic,path,filename)
 	else:
-		seg_createdict_ops(s,30,dic,path,filename)
+		seg_createdict_ops(s,dic,path,filename)
 main()
