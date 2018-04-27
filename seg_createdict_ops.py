@@ -13,7 +13,7 @@ def para_hash(string):
 #    key:hash code of this segment(filename)
 #    value:[0]location, [1]:a list contains its childs(aka raw filenames contain this paragraph)
 #This function returns a list that contains all hash code of this article
-def segment_create_dict(filename, dic, path):
+def segment_create_dict(filename, step, dic, path):
     '''
     read from file
     create and renew the dictionary
@@ -24,10 +24,6 @@ def segment_create_dict(filename, dic, path):
         data = myfile.read()
     tmp = data.split('\n\n')
     length = len(tmp)
-    if length < 1000:
-        step = 1
-    else:
-        step = length//1000
     for i in range(0,length,step):
         tmp2 = ''
         if i + step < length:
@@ -42,10 +38,12 @@ def segment_create_dict(filename, dic, path):
         hashtmp = para_hash(hashstr)
         article_hash_lst.append(hashtmp)
         if hashtmp in dic:
-            dic[hashtmp].append(os.path.basename(filename))
+            if os.path.basename(filename) not in dic[hashtmp]:
+                dic[hashtmp].append(os.path.basename(filename))
         else:
             chunkname = path + hashtmp + ('.txt')
-            
+
+            #dic[hashtmp] = [os.path.basename(filename)]
             dic[hashtmp] = [os.path.basename(filename)]
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
@@ -56,13 +54,40 @@ def segment_create_dict(filename, dic, path):
     article_hash_lst_file.write(str(article_hash_lst).strip('[').strip(']'))
     return article_hash_lst
 
+def get_iven(file, path):
+    '''get the list of hash
+       then retrieve the file according to hash in order
+    '''
+    f = open(path+file, "r")
+    line = f.readline()
+    parts_list = []
+    while line:
+        line = line.rstrip("\n")  # delete the \n at the end of each line
+        parts_list.append(line)
+        #print (line)
+        line = f.readline()
+    f.close()
+    #print(parts_list)
+    inventory = {}
+    for i in range(len(parts_list)):
+        parts_list[i] = parts_list[i].split()
+        print(parts_list[i])
+        inventory[parts_list[i][0]] = []
+        for k in range(1, len(parts_list[i])):
+            inventory[parts_list[i][0]].append(parts_list[i][k])
+    return inventory
+
+
 #test:
 #test was done in folder:seg_createdict_ops
 def main():
-    dic={}
-    segment_create_dict('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
+    try:
+        dic = get_iven('Inven_dic.txt','')
+    except:
+        dic={}
+    #segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
+    #segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
     Inven_dic=open('Inven_dic.txt','w')
     for key in dic:
         info="{} ".format(key)
@@ -71,9 +96,11 @@ def main():
             info="{} ".format(dic[key][child])
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
+
     
 if __name__ == '__main__':
     main()
+
 
 
 
