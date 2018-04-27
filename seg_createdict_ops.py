@@ -38,11 +38,11 @@ def segment_create_dict(filename, step, dic, path):
         hashtmp = para_hash(hashstr)
         article_hash_lst.append(hashtmp)
         if hashtmp in dic:
-            dic[hashtmp][1].append(filename)
+            dic[hashtmp].append(os.path.basename(filename))
         else:
             chunkname = path + hashtmp + ('.txt')
             
-            dic[hashtmp] = [path,[filename]]
+            dic[hashtmp] = [os.path.basename(filename)]
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
             text_file.close()
@@ -57,13 +57,22 @@ def segment_create_dict(filename, step, dic, path):
 def main():
     dic={}
     segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
-    #segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
-    #segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
-    #print(dic)
-
+    segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
+    segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
+    Inven_dic=open('Inven_dic.txt','w')
+    for key in dic:
+        info="{} ".format(key)
+        Inven_dic.write(str(info))
+        for child in range(0,len(dic[key])):
+            info="{} ".format(dic[key][child])
+            Inven_dic.write(str(info))
+        Inven_dic.write('\n')
+    
 if __name__ == '__main__':
     main()
-    
+
+
+
 
 
 
