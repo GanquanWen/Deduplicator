@@ -6,19 +6,25 @@ def is_binary(s):
 		return True
 	except:
 		return False
-def binary_chunk(s,step,dic,path,filename):
+
+def binary_chunk(s,dic,path,filename):
 	articlelist = []
-	cnt=0
-	offset=0
-	window_length=10000
-	ori=s
-	psed_para=[]
+	#psed_para=[]
+	size = len(s)
+	if size < 100000:
+		window_length = size // 10
+		step = max(1,size // 10000)
+		pattern = '101'
+	else:    
+		window_length = 10000
+		step = size // 100000
+		pattern = '010101'
 	for i in range(0,len(s),step):
-		window_content=s[i:i+window_length]
-		slide_step=6
-		if window_content[-slide_step:]=='010101':
+		window_content = s[i:i+window_length]
+		slide_step = len(pattern)
+		if window_content[-slide_step:] == pattern:
 			hashtemp = hash(window_content)
-			print(hashtemp)
+			#print(hashtemp)
 			articlelist.append(hashtemp)
 			if hashtemp in dic:
 				dic[hashtemp][1].append(filename)
@@ -28,6 +34,7 @@ def binary_chunk(s,step,dic,path,filename):
 				text_file = open(chunkname, "w")
 				text_file.write(window_content)
 				text_file.close()
+	print(len(articlelist))
 	#         hashstr = window_content.encode('utf-8')
 	#         hashtmp = para_hash(hashstr)
 	#         article_hash_lst.append(hashtmp)
@@ -72,17 +79,21 @@ def segment_create_dict(s,dic,path,filename):
 					text_file.write(tmp2)
 					text_file.close()
 	return article_hash_lst
+
 def insert(original,new,position):
 	return original[:position] + new + original[position:]
+
 def para_hash(string):
 	h=hashlib.sha256()
 	h.update(string)
 	result=h.hexdigest()
 	return result
+
 def hash(chunk):
 	hashstr = chunk.encode('utf-8')
 	hashtmp = para_hash(hashstr)
 	return hashtmp
+
 def main():
 	dic = {}
 	filename = 'test1_binary.txt'
@@ -90,7 +101,8 @@ def main():
 	f= open(filename,'r') 
 	s= f.read()
 	if is_binary(s):
-		binary_chunk(s,30,dic,path,filename)
+		#binary_chunk(s,30,dic,path,filename)
+		binary_chunk(s,dic,path,filename)
 	else:
 		seg_createdict_ops(s,dic,path,filename)
 main()
