@@ -33,7 +33,7 @@ def retrieve(file, path):
 
 	'''store the article as txt file'''
 	file_name = file.lstrip('list_')
-	output_file = open(path + file_name, "w")
+	output_file = open(file_name, "w")
 	output_file.write(original_file)
 	output_file.close()
 
