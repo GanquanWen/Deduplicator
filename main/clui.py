@@ -2,6 +2,8 @@
 
 
 import sys
+import delete
+import fileretrieve
 
 def cli(cmd):
 	'''The format of input should be store -file [file] -locker [locker_location]
@@ -9,17 +11,8 @@ def cli(cmd):
 	command = cmd.split()
 	return command
 
-
 	
 def store(file, path):
-	return None
-
-
-def delete(file, path):
-	return None
-
-
-def retrieve(file, path):
 	return None
 
 
@@ -29,26 +22,26 @@ def main():
 		[0] is the command;
 		[2] is the name of the file;
 		[4] is the path to the locker.'''
-		print ('Format of Input: command -file ["filename"] -path ["path_to_locker"]')
-		print ('(no space in ["filename"] and ["path_to_locker"])')
+		print ('Format of Input: command -file "filename" -path "path_to_locker"')
+		print ('(no space in "filename" and "path_to_locker")')
 		command = sys.stdin.readline()
 		command = cli(command)
-		print command
+		print (command)
 
 		'''Judge if the command is valid.'''
 		if command == ['exit']:
 			return None
 		elif len(command) != 5:
-			print 'Incorrect input format!'
+			print('Incorrect input format!')
 			continue
 		elif command[0] == 'store':
 			store(command[2],command[4])
 		elif command[0] == 'delete':
-			delete(command[2],command[4])
+			delete.delete(command[2],command[4])
 		elif command[0] == 'retrieve':
-			retrieve(command[2],command[4])
+			fileretrieve.retrieve(command[2],command[4])
 		else:
-			print 'Illegal command!(legal commands are: store; delete; retrieve.)'
+			print('Illegal command!(legal commands are: store; delete; retrieve.)')
 	return None
 
 
