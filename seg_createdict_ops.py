@@ -13,7 +13,7 @@ def para_hash(string):
 #    key:hash code of this segment(filename)
 #    value:[0]location, [1]:a list contains its childs(aka raw filenames contain this paragraph)
 #This function returns a list that contains all hash code of this article
-def segment_create_dict(filename, step, dic, path):
+def segment_create_dict(filename, dic, path):
     '''
     read from file
     create and renew the dictionary
@@ -24,6 +24,10 @@ def segment_create_dict(filename, step, dic, path):
         data = myfile.read()
     tmp = data.split('\n\n')
     length = len(tmp)
+    if length < 1000:
+            step = 1
+    else:
+        step = length//1000
     for i in range(0,length,step):
         tmp2 = ''
         if i + step < length:
@@ -49,6 +53,41 @@ def segment_create_dict(filename, step, dic, path):
             text_file.write(tmp2)
             text_file.close()
     #create artile list file
+    article_hash_lst_filename = path+'list_'+os.path.basename(filename)
+    article_hash_lst_file=open(article_hash_lst_filename,'w')
+    article_hash_lst_file.write(str(article_hash_lst).strip('[').strip(']'))
+    return article_hash_lst
+
+def binary_chunk(filename,dic,path):
+    with open(filename, 'r') as myfile:
+        s = myfile.read()
+    size = len(s)
+    #print(size)
+    article_hash_lst = []
+    if size < 100000:
+        window_length = size // 10
+        step = max(1,size // 10000)
+        pattern = '101'
+    else:    
+        window_length = 10000
+        step = size // 100000
+        pattern = '010101'
+    for i in range(0,len(s),step):
+        window_content = s[i:i+window_length]
+        slide_step = len(pattern)
+        if window_content[-slide_step:] == pattern:
+            hashstr = window_content.encode('utf-8')
+            hashtemp = para_hash(hashstr)
+            article_hash_lst.append(hashtemp)
+            if hashtemp in dic:
+                if os.path.basename(filename) not in dic[hashtemp]:
+                    dic[hashtemp].append(os.path.basename(filename))
+            else:
+                chunkname = path + hashtemp + ('.txt')
+                dic[hashtemp] = [os.path.basename(filename)]
+                text_file = open(chunkname, "w")
+                text_file.write(window_content)
+                text_file.close()
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
     article_hash_lst_file.write(str(article_hash_lst).strip('[').strip(']'))
@@ -81,14 +120,31 @@ def get_iven(file, path):
 #test:
 #test was done in folder:seg_createdict_ops
 def main():
-    try:
-        dic = get_iven('Inven_dic.txt','')
-    except:
-        dic={}
-    #segment_create_dict('seg_createdict_ops/file1.txt',1,dic,'seg_createdict_ops/Lockers/')
-    #segment_create_dict('seg_createdict_ops/file2.txt',1,dic,'seg_createdict_ops/Lockers/')
-    segment_create_dict('seg_createdict_ops/file3.txt',1,dic,'seg_createdict_ops/Lockers/')
-    Inven_dic=open('Inven_dic.txt','w')
+    filename = 'seg_createdict_ops/binary/file4.txt'
+    with open(filename, 'r') as myfile:
+        data = myfile.read()
+    tmp = data.split('\n\n')
+    if len(tmp) > 1:
+        inv = 'Inven_dic.txt'
+        try:
+            dic_a = get_iven('Inven_dic.txt','')
+        except:
+            dic_a = {}
+        dic = dic_a 
+    else:
+        inv = 'Inven_dic_binary.txt'
+        try:
+            dic_b = get_iven('Inven_dic_binary.txt','')
+        except:
+            dic_b = {}
+        dic = dic_b 
+    # segment_create_dict('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
+    # segment_create_dict('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
+    # segment_create_dict('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
+    #binary_chunk(filename,dic_b,'seg_createdict_ops/Lockers2/')
+    binary_chunk(filename,dic_b,'seg_createdict_ops/Lockers2/')
+
+    Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
         Inven_dic.write(str(info))
