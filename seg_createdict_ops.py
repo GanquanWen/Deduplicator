@@ -65,21 +65,21 @@ def binary_chunk(filename,dic,path):
     #print(size)
     article_hash_lst = []
     if size < 100000:
-        window_length = size // 10
-        step = max(1,size // 10000)
+        window_length = size // 100
         pattern = '101'
     else:    
-        window_length = 10000
-        step = size // 100000
+        window_length = 2000
         pattern = '010101'
     step = 1
     flag = 0 
     #for i in range(0,len(s),step):
     i = 0
+    tmpi = 0
     while i < len(s):
         if flag == 1:
             i += window_length-1
-        window_content = s[i:i+window_length]
+            tmpi = i
+        window_content = s[tmpi:i+window_length]
         slide_step = len(pattern)
         if window_content[-slide_step:] == pattern:
             flag = 1
@@ -97,6 +97,7 @@ def binary_chunk(filename,dic,path):
                 text_file.close()
         else:
             flag = 0
+
         i += 1
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
