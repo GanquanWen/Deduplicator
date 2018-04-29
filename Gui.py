@@ -42,9 +42,10 @@ def ASCII_chunk(filename, dic, path):
             step = 1
     else:
         step = length//1000
-    rng = step*10
+    rng = length // 10
     list_rng=[rng*i for i in range(11)]
     set_rng = set(list_rng)
+    t=0
     for i in range(0,length,step):
         tmp2 = ''
         if i + step < length:
@@ -53,8 +54,6 @@ def ASCII_chunk(filename, dic, path):
         else:
             for j in range(i,length):
                 tmp2 += tmp[j]
-        # print(tmp2)
-        ###
         hashstr = tmp2.encode('utf-8')
         hashtmp = para_hash(hashstr)
         article_hash_lst.append(hashtmp)
@@ -68,18 +67,16 @@ def ASCII_chunk(filename, dic, path):
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
             text_file.close()
-        # app.progressbar["value"] = i
-        # app.progressbar["maximum"] = length
-        # app.change_schedule(i,length)
-        # if i in set_rng:
-        #     # print(i)
-        #     app.progressbar["value"] = i
-        #     app.progressbar["maximum"] = list_rng[-1]
-        #     app.change_schedule(i,list_rng[-1])
+        if i > list_rng[t]:
+            t += 1
+            #time.sleep(0.2)
+            app.progressbar["value"] = i
+            app.progressbar["maximum"] = list_rng[-2]
+            app.change_schedule(i,list_rng[-2]) 
     #create artile list file
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
-    article_hash_lst_file.write(str(articlele_hash_lst).strip('[').strip(']'))
+    article_hash_lst_file.write(str(article_hash_lst).strip('[').strip(']'))
     return article_hash_lst
 
 def timeinterval(size):
@@ -266,8 +263,9 @@ class Application(Frame):
         self.update()
         x.set(str(round(now_schedule/all_schedule*100,0)) + '%')  
         if now_schedule >= all_schedule:
+            app.progressbar.stop()
             x.set("Finish")
-            self.canvasLabel['font']=20
+            self.canvasLabel['font']=30
     
     #Insert Function
     def insert_Button(self):
@@ -283,8 +281,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        insertFile()
-        self.progressbar.stop()
+        insertASCII()
         endtime=time.time()
         totaltime = endtime - starttime
         messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
@@ -343,31 +340,50 @@ class Application(Frame):
         self.retrieveButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
 
-def insertFile():
-    #filename = 'ec504_sample_file/file1.txt'
-    filename = 'seg_createdict_ops/binary/filen.txt'
+# def insertFile():
+#     #filename = 'ec504_sample_file/file1.txt'
+#     filename = 'seg_createdict_ops/binary/file1.txt'
+#     with open(filename, 'r') as myfile:
+#         data = myfile.read()
+#     tmp = data.split('\n\n')
+#     if len(tmp) > 1:
+#         inv = 'Inven_dic.txt'
+#         try:
+#             dic_a = get_iven('Inven_dic.txt','')
+#         except:
+#             dic_a = {}
+#         dic = dic_a 
+#     else:
+#         inv = 'Inven_dic_binary.txt'
+#         try:
+#             dic_b = get_iven('Inven_dic_binary.txt','')
+#         except:
+#             dic_b = {}
+#         dic = dic_b 
+#     # ASCII_chunk('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
+#     # ASCII_chunk('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
+#     # ASCII_chunk('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
+#     binary_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
+#     #ASCII_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
+#     Inven_dic=open(inv,'w')
+#     for key in dic:
+#         info="{} ".format(key)
+#         Inven_dic.write(str(info))
+#         for child in range(0,len(dic[key])):
+#             info="{} ".format(dic[key][child])
+#             Inven_dic.write(str(info))
+#         Inven_dic.write('\n')
+
+def insertbinary():
+    filename = 'seg_createdict_ops/binary/file1.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
-    tmp = data.split('\n\n')
-    if len(tmp) > 1:
-        inv = 'Inven_dic.txt'
-        try:
-            dic_a = get_iven('Inven_dic.txt','')
-        except:
-            dic_a = {}
-        dic = dic_a 
-    else:
-        inv = 'Inven_dic_binary.txt'
-        try:
-            dic_b = get_iven('Inven_dic_binary.txt','')
-        except:
-            dic_b = {}
-        dic = dic_b 
-    # ASCII_chunk('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
-    # ASCII_chunk('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
-    # ASCII_chunk('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
+    inv = 'Inven_dic_binary.txt'
+    try:
+        dic = get_iven('Inven_dic_binary.txt','')
+    except:
+        dic = {}
     binary_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
-    #ASCII_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
@@ -377,6 +393,24 @@ def insertFile():
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
 
+def insertASCII():
+    filename = 'ec504_sample_file/file1.txt'
+    with open(filename, 'r') as myfile:
+        data = myfile.read()
+    inv = 'Inven_dic.txt'
+    try:
+        dic = get_iven('Inven_dic.txt','')
+    except:
+        dic = {}
+    ASCII_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
+    Inven_dic=open(inv,'w')
+    for key in dic:
+        info="{} ".format(key)
+        Inven_dic.write(str(info))
+        for child in range(0,len(dic[key])):
+            info="{} ".format(dic[key][child])
+            Inven_dic.write(str(info))
+        Inven_dic.write('\n')
 
 app = Application()
 def main():
