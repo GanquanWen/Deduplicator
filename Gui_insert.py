@@ -42,6 +42,9 @@ def ASCII_chunk(filename, dic, path):
             step = 1
     else:
         step = length//1000
+    rng = length // 10
+    list_rng=[rng*i for i in range(11)]
+    t = 0
     for i in range(0,length,step):
         tmp2 = ''
         if i + step < length:
@@ -63,9 +66,11 @@ def ASCII_chunk(filename, dic, path):
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
             text_file.close()
-        app.progressbar["value"] = i
-        app.progressbar["maximum"] = length
-        # app.change_schedule(i,length)
+        if i > list_rng[t]:
+            t += 1
+            app.progressbar["value"] = i
+            app.progressbar["maximum"] = list_rng[-2]
+            app.change_schedule(i,list_rng[-2]) 
     #create artile list file
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
