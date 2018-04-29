@@ -15,7 +15,7 @@ def cli(cmd):
 	
 def store(file, path):
 	return None
-
+ 
 
 def main():
 	while True:

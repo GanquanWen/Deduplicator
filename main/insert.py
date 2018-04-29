@@ -1,5 +1,6 @@
 import hashlib
 import os
+import re
 #hash the given string
 def para_hash(string):
     h=hashlib.sha256()
@@ -22,7 +23,9 @@ def ASCII_chunk(filename, dic, path):
     article_hash_lst = []
     with open(filename, 'r') as myfile:
         data = myfile.read()
-    tmp = data.split('\n\n')
+    tmp = re.split(r"(\n\n)", data)
+    tmp.append("")
+    tmp = ["".join(i) for i in zip(tmp[0::2],tmp[1::2])]
     length = len(tmp)
     if length < 1000:
             step = 1
