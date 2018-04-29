@@ -164,7 +164,8 @@ def retrieve(file, path):
     '''get the list of hash
        then retrieve the file according to hash in order
     '''
-    f = open(path+file, "r")
+    file_name = 'list_' + file
+    f = open(path+file_name, "r")
     line = f.readline()
     f.close()
     org_list = line.split(", ")
@@ -172,8 +173,10 @@ def retrieve(file, path):
     for n in range(len(org_list)):
         parts_list.append(org_list[n].strip("\'"))
     print(parts_list)
+
     '''retrieve each part of the original article by the hash
        connect them to make a string'''
+
     original_file = ""
     for i in range(len(parts_list)):
         part_file = open(path+parts_list[i]+'.txt', "r")
@@ -184,18 +187,66 @@ def retrieve(file, path):
         if i < len(parts_list)-1:
             original_file += '\n\n'  # adding a blank line between each part
         part_file.close()
-        app.progressbar["value"] = i
-        app.progressbar["maximum"] = len(parts_list)
-        app.change_schedule(i,len(parts_list))
+
     '''store the article as txt file'''
     file_name = file.lstrip('list_')
-    output_file = open(path + file_name, "w")
+    output_file = open(file_name, "w")
     output_file.write(original_file)
     output_file.close()
+
     return original_file
-       
-# def insert(original,new,position):
-#     return original[:position] + new + original[position:]
+
+def delete(file, path):
+    '''get the list of hash
+       then delete every part on the list according to hash in order
+    '''
+    M = get_iven('Inven_dic.txt','')
+    file_name = 'list_' + file
+
+    # f = open(path+file_name, "r")
+    # line = f.readline()
+    # parts_list = []
+    # while line:
+    #   line = line.rstrip("\n")  # delete the \n at the end of each line
+    #   parts_list.append(line)
+    #   print(line)
+    #   line = f.readline()
+    # f.close()
+    f = open(path+file_name, "r")
+    line = f.readline()
+    f.close()
+    org_list = line.split(", ")
+    parts_list = []
+    for n in range(len(org_list)):
+        parts_list.append(org_list[n].strip("\'"))
+
+    for part in parts_list:
+        if part in M:
+            if len(M[part]) == 1:
+                os.remove(path+part+'.txt')
+                print('remove '+path+part+'.txt')
+                del M[part]
+            else:
+                if file in M[part]:
+                    M[part].remove(file)
+        else:
+            continue
+
+    os.remove(path+file_name)
+    print (file + ' deleted')
+    
+    dic = M
+    Inven_dic=open('Inven_dic.txt','w')
+    for key in dic:
+        info="{} ".format(key)
+        Inven_dic.write(str(info))
+        for child in range(0,len(dic[key])):
+            info="{} ".format(dic[key][child])
+            Inven_dic.write(str(info))
+        Inven_dic.write('\n')
+
+    return M
+
 
 class Application(Frame):
     #Initial function
@@ -221,7 +272,7 @@ class Application(Frame):
         self.fileButton.grid(row = 2, column = 0)
         self.lockerButton = Button(self, text='Select Locker',command = self.choose_Locker)
         self.lockerButton.grid(row = 4, column = 0)
-        self.insertButton = Button(self, text='Insert', command=self.insert_Button)
+        self.insertButton = Button(self, text='Insert ASCII File', command=self.insert_Button)
         self.insertButton.grid(row = 5,column = 0)
         self.insertBFileButton = Button(self, text='Insert Binary File', command=self.insert_Binary_Button)
         self.insertBFileButton.grid(row = 5,column = 1)
@@ -233,11 +284,6 @@ class Application(Frame):
         self.quitButton.grid(row = 7,column = 1)
         self.progressbar = ttk.Progressbar(self, orient="horizontal", length=200, mode="determinate")
         self.progressbar.grid(row=8, column=0)
-        # self.canvas = Canvas(self,width = 120,height = 30,bg = "white")
-        # self.canvas.grid(row = 10,column = 0)
-        # self.thread = threading.Thread()
-        # self.thread.__init__(target=self.progressbar.start(self.interval),args=())
-        # self.thread.start()
     #Function to refresh Progressbar
     def choose_File(self):
         filename = filedialog.askopenfilename(title = "Select File",filetypes = (("text file","*.txt"),("","")))
@@ -259,14 +305,11 @@ class Application(Frame):
         x=StringVar()
         self.canvasLabel = Label(self,textvariable = x)
         self.canvasLabel.grid(row = 8,column = 1)
-        # out_rec=self.canvas.create_rectangle(5,5,105,25,outline = "blue",width = 1)
-        # fill_rec=self.canvas.create_rectangle(5,5,5,25,outline = "",width = 0,fill = "blue")
-        # self.canvas.coords(fill_rec, (5, 5, 6 + (now_schedule/all_schedule)*100, 25))   
         self.update()
-        x.set(str(round(now_schedule/all_schedule*100,2)) + '%')  
-        if now_schedule==all_schedule:
+        x.set(str(round(now_schedule/all_schedule*100,0)) + '%')  
+        if now_schedule>=all_schedule:
             x.set("Finish")
-            self.canvasLabel['font']=20
+            self.canvasLabel['font']=30
     #insert binary file
     def insert_Binary_Button(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please select the File")
@@ -284,7 +327,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        ####INSERT BINARY FILE
+        insertbinary()
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
@@ -314,7 +357,8 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        insertFile()
+        insertASCII()
+        self.progressbar.start()
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
@@ -344,7 +388,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        #操作一下
+        deleteBFun()
         self.progressbar.stop()
         endtime = time.time()
         totaltime = endtime - starttime
@@ -389,30 +433,16 @@ class Application(Frame):
         self.retrieveButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
 
-def insertFile():
-    filename = 'ec504_sample_file/file3.txt'
+def insertbinary():
+    filename = 'main/sample_binary/file1.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
-    tmp = data.split('\n\n')
-    if len(tmp) > 1:
-        inv = 'Inven_dic.txt'
-        try:
-            dic_a = get_iven('Inven_dic.txt','')
-        except:
-            dic_a = {}
-        dic = dic_a 
-    else:
-        inv = 'Inven_dic_binary.txt'
-        try:
-            dic_b = get_iven('Inven_dic_binary.txt','')
-        except:
-            dic_b = {}
-        dic = dic_b 
-    # ASCII_chunk('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
-    # ASCII_chunk('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
-    # ASCII_chunk('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
-    #binary_chunk(filename,dic_b,'seg_createdict_ops/Lockers2/')
-    ASCII_chunk(filename,dic_a,'seg_createdict_ops/Lockers2/')
+    inv = 'Inven_dic_binary.txt'
+    try:
+        dic = get_iven('Inven_dic_binary.txt','')
+    except:
+        dic = {}
+    binary_chunk(filename,dic,'main/Locker_Binary/')
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
@@ -422,6 +452,38 @@ def insertFile():
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
 
+def insertASCII():
+    filename = 'main/sample_ASCII/file1.txt'
+    with open(filename, 'r') as myfile:
+        data = myfile.read()
+    inv = 'Inven_dic.txt'
+    try:
+        dic = get_iven('Inven_dic.txt','')
+    except:
+        dic = {}
+    ASCII_chunk(filename,dic,'main/Locker_ASCII/')
+    Inven_dic=open(inv,'w')
+    for key in dic:
+        info="{} ".format(key)
+        Inven_dic.write(str(info))
+        for child in range(0,len(dic[key])):
+            info="{} ".format(dic[key][child])
+            Inven_dic.write(str(info))
+        Inven_dic.write('\n')
+
+def deleteBFun():
+    dic = get_iven('Inven_dic.txt','')
+    # print('Inventory restored')
+    # print(dic)
+
+    file = 'file_c.txt'
+    path = 'locker/'
+    dic = delete(file, path, dic)
+
+def retrieveBFun():
+    file = 'org_file_a.txt'
+    path = 'test/'
+    retrieve(file, path)
 
 app = Application()
 def main():
@@ -430,8 +492,6 @@ def main():
     app.master.maxsize(1000,1000)
     app.master.minsize(500,300)
     app.mainloop()
-
-
 
 if __name__ == '__main__':
     main()
