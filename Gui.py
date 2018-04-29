@@ -375,7 +375,7 @@ class Application(Frame):
 #         Inven_dic.write('\n')
 
 def insertbinary():
-    filename = 'seg_createdict_ops/binary/file1.txt'
+    filename = 'main/sample_binary/file1.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
     inv = 'Inven_dic_binary.txt'
@@ -383,7 +383,7 @@ def insertbinary():
         dic = get_iven('Inven_dic_binary.txt','')
     except:
         dic = {}
-    binary_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
+    binary_chunk(filename,dic,'main/Lockers_binary/')
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
@@ -394,7 +394,7 @@ def insertbinary():
         Inven_dic.write('\n')
 
 def insertASCII():
-    filename = 'ec504_sample_file/file1.txt'
+    filename = 'main/sample_ASCII/file1.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
     inv = 'Inven_dic.txt'
@@ -402,7 +402,7 @@ def insertASCII():
         dic = get_iven('Inven_dic.txt','')
     except:
         dic = {}
-    ASCII_chunk(filename,dic,'seg_createdict_ops/Lockers2/')
+    ASCII_chunk(filename,dic,'main/Lockers_ASCII/')
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
