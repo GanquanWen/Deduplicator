@@ -39,3 +39,11 @@ After deleting the file, the list of the file will be removed. The parts that on
 ```
 delete -file file1.txt -path locker/
 ```
+
+### 5. Exit
+
+Input 'exit' to stop the program.
+
+```
+exit
+```
