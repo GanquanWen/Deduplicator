@@ -411,6 +411,7 @@ def insertASCII():
             info="{} ".format(dic[key][child])
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
+print
 
 app = Application()
 def main():
