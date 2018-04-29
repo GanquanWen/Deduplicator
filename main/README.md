@@ -1,0 +1,41 @@
+# How to use Command Line User Interface
+
+### 1. Run clui.py with Python2.7
+
+```
+$ python clui.py
+```
+
+### 2. Store file in locker
+
+The folder 'locker' needs to be existed. The file to be stored needs to be in the same folder with the clui.py
+
+The file will be splited into parts and stored in locker. A inventory file (Inven_dic.txt) will be created in the same folder with the clui.py. Also, a list of all the parts that the file has will be store as list_filename.txt in locker. The original file will be removed.
+
+The inventory is essential for storing and deleting. And the list is essential for deleting and retrieving the corresponding file.
+
+You can use one of the example file in folder 'example'
+
+Example:
+
+```
+store -file file1.txt -path locker/
+```
+
+### 3. Retrieve file
+
+The retrieved file will be saved in the root folder of clui.py.
+
+Example
+
+```
+retrieve -file file1.txt -path locker/
+```
+
+### 4. Delete file
+
+After deleting the file, the list of the file will be removed. The parts that only be used by the file will be removed from locker. And the inventory will be updated.
+
+```
+delete -file file1.txt -path locker/
+```
