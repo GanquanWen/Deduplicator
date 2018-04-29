@@ -212,12 +212,14 @@ class Application(Frame):
         self.lockerButton.grid(row = 4, column = 0)
         self.insertButton = Button(self, text='Insert', command=self.insert_Button)
         self.insertButton.grid(row = 5,column = 0)
+        self.insertBFileButton = Button(self, text='Insert Binary File', command=self.insert_Binary_Button)
+        self.insertBFileButton.grid(row = 5,column = 1)
         self.deleteButton = Button(self, text='Delete', command=self.delete_Button)
         self.deleteButton.grid(row = 6,column = 0)
         self.retrieveButton = Button(self, text='Retrieve', command=self.retrieve_Button)
         self.retrieveButton.grid(row = 7,column = 0)
         self.quitButton = Button(self, text="QUIT", fg="red", command=self.quit)
-        self.quitButton.grid(row = 6,column = 1)
+        self.quitButton.grid(row = 7,column = 1)
         self.progressbar = ttk.Progressbar(self, orient="horizontal", length=200, mode="determinate")
         self.progressbar.grid(row=8, column=0)
         # self.canvas = Canvas(self,width = 120,height = 30,bg = "white")
@@ -227,6 +229,11 @@ class Application(Frame):
         # self.thread.start()
     #Function to refresh Progressbar
     def choose_File(self):
+        filename = filedialog.askopenfilename(title = "Select File",filetypes = (("text file","*.txt"),("","")))
+        self.nameInput['state'] = 'normal'
+        self.nameInput.insert(0,str(filename))
+        self.nameInput['state'] = 'disable'
+    def choose_AFile(self):
         filename = filedialog.askopenfilename(title = "Select File",filetypes = (("text file","*.txt"),("","")))
         self.nameInput['state'] = 'normal'
         self.nameInput.insert(0,str(filename))
@@ -249,7 +256,36 @@ class Application(Frame):
         if now_schedule==all_schedule:
             x.set("Finish")
             self.canvasLabel['font']=20
-    
+    #insert binary file
+    def insert_Binary_Button(self):
+        name = self.nameInput.get() or messagebox.showerror("Error", "Please select the File")
+        if name !=self.nameInput.get():
+            return 0
+        locker= self.lockerInput.get() or messagebox.showerror("Error", "Please select the Locker")
+        if locker !=self.lockerInput.get():
+            return 0
+        starttime=time.time()
+        self.progressbar.start()
+        self.fileButton.configure(state = 'disable')
+        self.lockerButton.configure(state = 'disable')
+        self.insertButton.configure(state = 'disable')
+        self.insertBFileButton.configure(state = 'disable')
+        self.deleteButton.configure(state = 'disable')
+        self.retrieveButton.configure(state = 'disable')
+        self.quitButton.configure(state = 'disable')
+        ####INSERT BINARY FILE
+        self.progressbar.stop()
+        endtime=time.time()
+        totaltime = endtime - starttime
+        messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
+        self.fileButton.configure(state = 'normal')
+        self.lockerButton.configure(state = 'normal')
+        self.insertButton.configure(state = 'normal')
+        self.insertBFileButton.configure(state = 'normal')
+        self.deleteButton.configure(state = 'normal')
+        self.retrieveButton.configure(state = 'normal')
+        self.quitButton.configure(state = 'normal')
+
     #Insert Function
     def insert_Button(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please select the File")
@@ -260,7 +296,10 @@ class Application(Frame):
             return 0
         starttime=time.time()
         self.progressbar.start()
+        self.fileButton.configure(state = 'disable')
+        self.lockerButton.configure(state = 'disable')
         self.insertButton.configure(state = 'disable')
+        self.insertBFileButton.configure(state = 'disable')
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
@@ -269,7 +308,10 @@ class Application(Frame):
         endtime=time.time()
         totaltime = endtime - starttime
         messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
+        self.fileButton.configure(state = 'normal')
+        self.lockerButton.configure(state = 'normal')
         self.insertButton.configure(state = 'normal')
+        self.insertBFileButton.configure(state = 'normal')
         self.deleteButton.configure(state = 'normal')
         self.retrieveButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
@@ -284,7 +326,10 @@ class Application(Frame):
             return 0
         starttime = time.time()
         self.progressbar.start()
+        self.fileButton.configure(state = 'disable')
+        self.lockerButton.configure(state = 'disable')
         self.insertButton.configure(state = 'disable')
+        self.insertBFileButton.configure(state = 'disable')
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
@@ -293,7 +338,10 @@ class Application(Frame):
         endtime = time.time()
         totaltime = endtime - starttime
         messagebox.showinfo('Message', 'Delete file '+ name +' from locker '+ locker+'\nTotal time is '+ str(totaltime) )
+        self.fileButton.configure(state = 'normal')
+        self.lockerButton.configure(state = 'normal')
         self.insertButton.configure(state = 'normal')
+        self.insertBFileButton.configure(state = 'normal')
         self.deleteButton.configure(state = 'normal')
         self.retrieveButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
@@ -308,7 +356,10 @@ class Application(Frame):
             return 0
         starttime=time.time()
         self.progressbar.start()
+        self.fileButton.configure(state = 'disable')
+        self.lockerButton.configure(state = 'disable')
         self.insertButton.configure(state = 'disable')
+        self.insertBFileButton.configure(state = 'disable')
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
@@ -319,7 +370,10 @@ class Application(Frame):
         endtime=time.time()
         totaltime = endtime-starttime
         messagebox.showinfo('Message','Retrieve file ' + name+ ' from locker '+ locker +'\nTotal time is '+ str(totaltime) )
+        self.fileButton.configure(state = 'normal')
+        self.lockerButton.configure(state = 'normal')
         self.insertButton.configure(state = 'normal')
+        self.insertBFileButton.configure(state = 'normal')
         self.deleteButton.configure(state = 'normal')
         self.retrieveButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
