@@ -164,15 +164,13 @@ def retrieve(file, path):
     '''get the list of hash
        then retrieve the file according to hash in order
     '''
-    file_name = 'list_' + file
-    f = open(path+file_name, "r")
+    f = open(file, "r")
     line = f.readline()
     f.close()
     org_list = line.split(", ")
     parts_list = []
     for n in range(len(org_list)):
         parts_list.append(org_list[n].strip("\'"))
-    print(parts_list)
 
     '''retrieve each part of the original article by the hash
        connect them to make a string'''
@@ -189,7 +187,41 @@ def retrieve(file, path):
         part_file.close()
 
     '''store the article as txt file'''
-    file_name = file.lstrip('list_')
+    file_name_split = file.split('/')
+    file_name = file_name_split[-1].lstrip('list_')
+    output_file = open(file_name, "w")
+    output_file.write(original_file)
+    output_file.close()
+
+    return original_file
+
+def bi_retrieve(file, path):
+    '''get the list of hash
+       then retrieve the file according to hash in order
+    '''
+    f = open(file, "r")
+    line = f.readline()
+    f.close()
+    org_list = line.split(", ")
+    parts_list = []
+    for n in range(len(org_list)):
+        parts_list.append(org_list[n].strip("\'"))
+
+    '''retrieve each part of the original article by the hash
+       connect them to make a string'''
+
+    original_file = ""
+    for i in range(len(parts_list)):
+        part_file = open(path+parts_list[i]+'.txt', "r")
+        line = part_file.readline()
+        while line:
+            original_file += line
+            line = part_file.readline()
+        part_file.close()
+
+    '''store the article as txt file'''
+    file_name_split = file.split('/')
+    file_name = file_name_split[-1].lstrip('list_')
     output_file = open(file_name, "w")
     output_file.write(original_file)
     output_file.close()
@@ -200,8 +232,7 @@ def delete(file, path):
     '''get the list of hash
        then delete every part on the list according to hash in order
     '''
-    M = get_iven('Inven_dic.txt','')
-    file_name = 'list_' + file
+    M = get_iven('Inventory.txt','')
 
     # f = open(path+file_name, "r")
     # line = f.readline()
@@ -212,9 +243,11 @@ def delete(file, path):
     #   print(line)
     #   line = f.readline()
     # f.close()
-    f = open(path+file_name, "r")
+    f = open(file, "r")
     line = f.readline()
     f.close()
+    file_name_split = file.split('/')
+    file_name = file_name_split[-1].lstrip('list_')
     org_list = line.split(", ")
     parts_list = []
     for n in range(len(org_list)):
@@ -227,16 +260,17 @@ def delete(file, path):
                 print('remove '+path+part+'.txt')
                 del M[part]
             else:
-                if file in M[part]:
-                    M[part].remove(file)
+                if file_name in M[part]:
+                    M[part].remove(file_name)
         else:
             continue
 
-    os.remove(path+file_name)
+    os.remove(file)
     print (file + ' deleted')
+
     
     dic = M
-    Inven_dic=open('Inven_dic.txt','w')
+    Inven_dic=open('Inventory.txt','w')
     for key in dic:
         info="{} ".format(key)
         Inven_dic.write(str(info))
@@ -276,10 +310,12 @@ class Application(Frame):
         self.insertButton.grid(row = 5,column = 0)
         self.insertBFileButton = Button(self, text='Insert Binary File', command=self.insert_Binary_Button)
         self.insertBFileButton.grid(row = 5,column = 1)
+        self.retrieveButton = Button(self, text='Retrieve ACSCII File', command=self.retrieve_Button)
+        self.retrieveButton.grid(row = 6,column = 0)
+        self.retrieveButton = Button(self, text='Retrieve Binary FIle', command=self.retrieve_Binary_Button)
+        self.retrieveButton.grid(row = 6,column = 1)
         self.deleteButton = Button(self, text='Delete', command=self.delete_Button)
-        self.deleteButton.grid(row = 6,column = 0)
-        self.retrieveButton = Button(self, text='Retrieve', command=self.retrieve_Button)
-        self.retrieveButton.grid(row = 7,column = 0)
+        self.deleteButton.grid(row = 7,column = 0)
         self.quitButton = Button(self, text="QUIT", fg="red", command=self.quit)
         self.quitButton.grid(row = 7,column = 1)
         self.progressbar = ttk.Progressbar(self, orient="horizontal", length=200, mode="determinate")
@@ -288,16 +324,19 @@ class Application(Frame):
     def choose_File(self):
         filename = filedialog.askopenfilename(title = "Select File",filetypes = (("text file","*.txt"),("","")))
         self.nameInput['state'] = 'normal'
+        self.nameInput.delete(0,'end')
         self.nameInput.insert(0,str(filename))
         self.nameInput['state'] = 'disable'
     def choose_AFile(self):
         filename = filedialog.askopenfilename(title = "Select File",filetypes = (("text file","*.txt"),("","")))
         self.nameInput['state'] = 'normal'
+        self.nameInput.delete(0,'end')
         self.nameInput.insert(0,str(filename))
         self.nameInput['state'] = 'disable'
     def choose_Locker(self):
         lockername = filedialog.askdirectory(title = "Select Folder")
         self.lockerInput['state'] = 'normal'
+        self.lockerInput.delete(0,'end')
         self.lockerInput.insert(0,str(lockername))
         self.lockerInput['state'] = 'disable'
 
@@ -327,7 +366,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        insertbinary()
+        insertbinary(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
@@ -357,7 +396,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        insertASCII()
+        insertASCII(name,locker+'/')
         self.progressbar.start()
         self.progressbar.stop()
         endtime=time.time()
@@ -388,7 +427,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        deleteBFun()
+        deleteBFun(name,locker+'/')
         self.progressbar.stop()
         endtime = time.time()
         totaltime = endtime - starttime
@@ -418,9 +457,7 @@ class Application(Frame):
         self.deleteButton.configure(state = 'disable')
         self.retrieveButton.configure(state = 'disable')
         self.quitButton.configure(state = 'disable')
-        file = 'list_org_file_a.txt'
-        path = 'retrieve/test/'
-        retrieve(file, path)
+        retrieveBFun(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
@@ -433,16 +470,46 @@ class Application(Frame):
         self.retrieveButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
 
-def insertbinary():
-    filename = 'main/sample_binary/file1.txt'
+    def retrieve_Binary_Button(self):
+        name = self.nameInput.get() or messagebox.showerror("Error", "Please Select the File")
+        if name !=self.nameInput.get():
+            return 0
+        locker= self.lockerInput.get() or messagebox.showerror("Error", "Please select the Locker")
+        if locker !=self.lockerInput.get():
+            return 0
+        starttime=time.time()
+        self.progressbar.start()
+        self.fileButton.configure(state = 'disable')
+        self.lockerButton.configure(state = 'disable')
+        self.insertButton.configure(state = 'disable')
+        self.insertBFileButton.configure(state = 'disable')
+        self.deleteButton.configure(state = 'disable')
+        self.retrieveButton.configure(state = 'disable')
+        self.quitButton.configure(state = 'disable')
+        bi_retrieve(name,locker+'/')
+        self.progressbar.stop()
+        endtime=time.time()
+        totaltime = endtime-starttime
+        messagebox.showinfo('Message','Retrieve file ' + name+ ' from locker '+ locker +'\nTotal time is '+ str(totaltime) )
+        self.fileButton.configure(state = 'normal')
+        self.lockerButton.configure(state = 'normal')
+        self.insertButton.configure(state = 'normal')
+        self.insertBFileButton.configure(state = 'normal')
+        self.deleteButton.configure(state = 'normal')
+        self.retrieveButton.configure(state = 'normal')
+        self.quitButton.configure(state = 'normal')
+
+
+def insertbinary(filename,locker):
+    # filename = 'main/sample_binary/file1.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
-    inv = 'Inven_dic_binary.txt'
+    inv = 'Inventory.txt'
     try:
-        dic = get_iven('Inven_dic_binary.txt','')
+        dic = get_iven('Inventory.txt','')
     except:
         dic = {}
-    binary_chunk(filename,dic,'main/Locker_Binary/')
+    binary_chunk(filename,dic,locker)
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
@@ -452,16 +519,16 @@ def insertbinary():
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
 
-def insertASCII():
-    filename = 'main/sample_ASCII/file1.txt'
+def insertASCII(filename,locker):
+    # filename = 'main/sample_ASCII/file1.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
-    inv = 'Inven_dic.txt'
+    inv = 'Inventory.txt'
     try:
-        dic = get_iven('Inven_dic.txt','')
+        dic = get_iven('Inventory.txt','')
     except:
         dic = {}
-    ASCII_chunk(filename,dic,'main/Locker_ASCII/')
+    ASCII_chunk(filename,dic,locker)
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
@@ -471,18 +538,18 @@ def insertASCII():
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
 
-def deleteBFun():
-    dic = get_iven('Inven_dic.txt','')
+def deleteBFun(file,path):
+    
     # print('Inventory restored')
     # print(dic)
 
-    file = 'file_c.txt'
-    path = 'locker/'
-    dic = delete(file, path, dic)
+    # file = 'main/Lockers_binary/list_file1.txt'
+    # path = 'main/Lockers_binary'
+    dic = delete(file, path)
 
-def retrieveBFun():
-    file = 'org_file_a.txt'
-    path = 'test/'
+def retrieveBFun(file,path):
+    # file = 'main/Lockers_binary/list_file1.txt'
+    # path = 'main/Lockers_binary'
     retrieve(file, path)
 
 app = Application()
