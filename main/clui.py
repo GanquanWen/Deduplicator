@@ -3,6 +3,7 @@
 
 import sys
 import delete
+import insert
 import fileretrieve
 
 def cli(cmd):
@@ -40,6 +41,8 @@ def main():
 			delete.delete(command[2],command[4])
 		elif command[0] == 'retrieve':
 			fileretrieve.retrieve(command[2],command[4])
+		elif command[0] == 'insert':
+			pass
 		else:
 			print('Illegal command!(legal commands are: store; delete; retrieve.)')
 	return None
