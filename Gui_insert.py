@@ -61,7 +61,6 @@ def ASCII_chunk(filename, dic, path):
                 dic[hashtmp].append(os.path.basename(filename))
         else:
             chunkname = path + hashtmp + ('.txt')
-            #dic[hashtmp] = [os.path.basename(filename)]
             dic[hashtmp] = [os.path.basename(filename)]
             text_file = open(chunkname, "w")
             text_file.write(tmp2)
@@ -102,7 +101,6 @@ def binary_chunk(filename,dic,path):
         pattern = '010101'
     step = 1
     flag = 0 
-    #for i in range(0,len(s),step):
     i = 0
     j = 0
     tmpi = 0
@@ -128,7 +126,6 @@ def binary_chunk(filename,dic,path):
                 text_file.close()
             if i > list_rng[j]:
                 j += 1
-                #time.sleep(0.2)
                 app.progressbar["value"] = i
                 app.progressbar["maximum"] = list_rng[-2]
                 app.change_schedule(i,list_rng[-2]) 
@@ -150,10 +147,8 @@ def get_iven(file, path):
     while line:
         line = line.rstrip("\n")  # delete the \n at the end of each line
         parts_list.append(line)
-        #print (line)
         line = f.readline()
     f.close()
-    #print(parts_list)
     inventory = {}
     for i in range(len(parts_list)):
         parts_list[i] = parts_list[i].split()
@@ -228,16 +223,6 @@ def delete(file, path):
        then delete every part on the list according to hash in order
     '''
     M = get_iven('Inventory.txt','')
-
-    # f = open(path+file_name, "r")
-    # line = f.readline()
-    # parts_list = []
-    # while line:
-    #   line = line.rstrip("\n")  # delete the \n at the end of each line
-    #   parts_list.append(line)
-    #   print(line)
-    #   line = f.readline()
-    # f.close()
     f = open(file, "r")
     line = f.readline()
     f.close()
@@ -247,7 +232,6 @@ def delete(file, path):
     parts_list = []
     for n in range(len(org_list)):
         parts_list.append(org_list[n].strip("\'"))
-
     for part in parts_list:
         if part in M:
             if len(M[part]) == 1:
@@ -271,7 +255,6 @@ def delete(file, path):
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
     return M
-
 
 class Application(Frame):
     #Initial function
@@ -330,7 +313,6 @@ class Application(Frame):
         self.lockerInput.delete(0,'end')
         self.lockerInput.insert(0,str(lockername))
         self.lockerInput['state'] = 'disable'
-
     def change_schedule(self,now_schedule,all_schedule):
         x=StringVar()
         self.canvasLabel = Label(self,textvariable = x)
@@ -358,7 +340,6 @@ class Application(Frame):
         self.retrieveAButton.configure(state = 'normal')
         self.retrieveBButton.configure(state = 'normal')
         self.quitButton.configure(state = 'normal')
-    
     #insert binary file
     def insert_Binary_Button(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please select the File")
@@ -404,6 +385,10 @@ class Application(Frame):
         locker= self.lockerInput.get() or messagebox.showerror("Error", "Please select the Locker")
         if locker !=self.lockerInput.get():
             return 0
+        filename = name.split('/')
+        if 'list' not in filename[-1]:
+            messagebox.showerror("Error","Please select the list file for delete")
+            return 0
         starttime = time.time()
         self.progressbar.start()
         self.disable_buttons()
@@ -422,6 +407,10 @@ class Application(Frame):
         locker= self.lockerInput.get() or messagebox.showerror("Error", "Please select the Locker")
         if locker !=self.lockerInput.get():
             return 0
+        filename = name.split('/')
+        if 'list' not in filename[-1]:
+            messagebox.showerror("Error","Please select the list file for retrieve")
+            return 0
         starttime=time.time()
         self.progressbar.start()
         self.disable_buttons()
@@ -438,6 +427,10 @@ class Application(Frame):
             return 0
         locker= self.lockerInput.get() or messagebox.showerror("Error", "Please select the Locker")
         if locker !=self.lockerInput.get():
+            return 0
+        filename = name.split('/')
+        if 'list' not in filename[-1]:
+            messagebox.showerror("Error","Please select the list file for retrieve")
             return 0
         starttime=time.time()
         self.progressbar.start()
