@@ -50,8 +50,6 @@ def ASCII_chunk(filename, dic, path):
         else:
             for j in range(i,length):
                 tmp2 += tmp[j]
-        # print(tmp2)
-        ###
         hashstr = tmp2.encode('utf-8')
         hashtmp = para_hash(hashstr)
         article_hash_lst.append(hashtmp)
@@ -171,10 +169,8 @@ def retrieve(file, path):
     parts_list = []
     for n in range(len(org_list)):
         parts_list.append(org_list[n].strip("\'"))
-
     '''retrieve each part of the original article by the hash
        connect them to make a string'''
-
     original_file = ""
     for i in range(len(parts_list)):
         part_file = open(path+parts_list[i]+'.txt', "r")
@@ -185,14 +181,12 @@ def retrieve(file, path):
         if i < len(parts_list)-1:
             original_file += '\n\n'  # adding a blank line between each part
         part_file.close()
-
     '''store the article as txt file'''
     file_name_split = file.split('/')
     file_name = file_name_split[-1].lstrip('list_')
     output_file = open(file_name, "w")
     output_file.write(original_file)
     output_file.close()
-
     return original_file
 
 def bi_retrieve(file, path):
@@ -206,10 +200,8 @@ def bi_retrieve(file, path):
     parts_list = []
     for n in range(len(org_list)):
         parts_list.append(org_list[n].strip("\'"))
-
     '''retrieve each part of the original article by the hash
        connect them to make a string'''
-
     original_file = ""
     for i in range(len(parts_list)):
         part_file = open(path+parts_list[i]+'.txt', "r")
@@ -218,14 +210,12 @@ def bi_retrieve(file, path):
             original_file += line
             line = part_file.readline()
         part_file.close()
-
     '''store the article as txt file'''
     file_name_split = file.split('/')
     file_name = file_name_split[-1].lstrip('list_')
     output_file = open(file_name, "w")
     output_file.write(original_file)
     output_file.close()
-
     return original_file
 
 def delete(file, path):
@@ -264,11 +254,8 @@ def delete(file, path):
                     M[part].remove(file_name)
         else:
             continue
-
     os.remove(file)
     print (file + ' deleted')
-
-    
     dic = M
     Inven_dic=open('Inventory.txt','w')
     for key in dic:
@@ -278,7 +265,6 @@ def delete(file, path):
             info="{} ".format(dic[key][child])
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
-
     return M
 
 
@@ -310,10 +296,10 @@ class Application(Frame):
         self.insertButton.grid(row = 5,column = 0)
         self.insertBFileButton = Button(self, text='Insert Binary File', command=self.insert_Binary_Button)
         self.insertBFileButton.grid(row = 5,column = 1)
-        self.retrieveButton = Button(self, text='Retrieve ACSCII File', command=self.retrieve_Button)
-        self.retrieveButton.grid(row = 6,column = 0)
-        self.retrieveButton = Button(self, text='Retrieve Binary FIle', command=self.retrieve_Binary_Button)
-        self.retrieveButton.grid(row = 6,column = 1)
+        self.retrieveAButton = Button(self, text='Retrieve ACSCII File', command=self.retrieve_Button)
+        self.retrieveAButton.grid(row = 6,column = 0)
+        self.retrieveBButton = Button(self, text='Retrieve Binary FIle', command=self.retrieve_Binary_Button)
+        self.retrieveBButton.grid(row = 6,column = 1)
         self.deleteButton = Button(self, text='Delete', command=self.delete_Button)
         self.deleteButton.grid(row = 7,column = 0)
         self.quitButton = Button(self, text="QUIT", fg="red", command=self.quit)
@@ -349,6 +335,25 @@ class Application(Frame):
         if now_schedule>=all_schedule:
             x.set("Finish")
             self.canvasLabel['font']=30
+    def disable_buttons(self):
+        self.fileButton.configure(state = 'disable')
+        self.lockerButton.configure(state = 'disable')
+        self.insertButton.configure(state = 'disable')
+        self.insertBFileButton.configure(state = 'disable')
+        self.deleteButton.configure(state = 'disable')
+        self.retrieveAButton.configure(state = 'disable')
+        self.retrieveBButton.configure(state = 'disable')
+        self.quitButton.configure(state = 'disable')
+    def enable_buttons(self):
+        self.fileButton.configure(state = 'normal')
+        self.lockerButton.configure(state = 'normal')
+        self.insertButton.configure(state = 'normal')
+        self.insertBFileButton.configure(state = 'normal')
+        self.deleteButton.configure(state = 'normal')
+        self.retrieveAButton.configure(state = 'normal')
+        self.retrieveBButton.configure(state = 'normal')
+        self.quitButton.configure(state = 'normal')
+    
     #insert binary file
     def insert_Binary_Button(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please select the File")
@@ -359,25 +364,13 @@ class Application(Frame):
             return 0
         starttime=time.time()
         self.progressbar.start()
-        self.fileButton.configure(state = 'disable')
-        self.lockerButton.configure(state = 'disable')
-        self.insertButton.configure(state = 'disable')
-        self.insertBFileButton.configure(state = 'disable')
-        self.deleteButton.configure(state = 'disable')
-        self.retrieveButton.configure(state = 'disable')
-        self.quitButton.configure(state = 'disable')
+        self.disable_buttons()
         insertbinary(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
         messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
-        self.fileButton.configure(state = 'normal')
-        self.lockerButton.configure(state = 'normal')
-        self.insertButton.configure(state = 'normal')
-        self.insertBFileButton.configure(state = 'normal')
-        self.deleteButton.configure(state = 'normal')
-        self.retrieveButton.configure(state = 'normal')
-        self.quitButton.configure(state = 'normal')
+        self.enable_buttons()
 
     #Insert Function
     def insert_Button(self):
@@ -389,26 +382,14 @@ class Application(Frame):
             return 0
         starttime=time.time()
         self.progressbar.start()
-        self.fileButton.configure(state = 'disable')
-        self.lockerButton.configure(state = 'disable')
-        self.insertButton.configure(state = 'disable')
-        self.insertBFileButton.configure(state = 'disable')
-        self.deleteButton.configure(state = 'disable')
-        self.retrieveButton.configure(state = 'disable')
-        self.quitButton.configure(state = 'disable')
+        self.disable_buttons()
         insertASCII(name,locker+'/')
         self.progressbar.start()
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
         messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
-        self.fileButton.configure(state = 'normal')
-        self.lockerButton.configure(state = 'normal')
-        self.insertButton.configure(state = 'normal')
-        self.insertBFileButton.configure(state = 'normal')
-        self.deleteButton.configure(state = 'normal')
-        self.retrieveButton.configure(state = 'normal')
-        self.quitButton.configure(state = 'normal')
+        self.enable_buttons()
     
     #Delete Function
     def delete_Button(self):
@@ -420,25 +401,13 @@ class Application(Frame):
             return 0
         starttime = time.time()
         self.progressbar.start()
-        self.fileButton.configure(state = 'disable')
-        self.lockerButton.configure(state = 'disable')
-        self.insertButton.configure(state = 'disable')
-        self.insertBFileButton.configure(state = 'disable')
-        self.deleteButton.configure(state = 'disable')
-        self.retrieveButton.configure(state = 'disable')
-        self.quitButton.configure(state = 'disable')
-        deleteBFun(name,locker+'/')
+        self.disable_buttons()
+        delete(name,locker+'/')
         self.progressbar.stop()
         endtime = time.time()
         totaltime = endtime - starttime
         messagebox.showinfo('Message', 'Delete file '+ name +' from locker '+ locker+'\nTotal time is '+ str(totaltime) )
-        self.fileButton.configure(state = 'normal')
-        self.lockerButton.configure(state = 'normal')
-        self.insertButton.configure(state = 'normal')
-        self.insertBFileButton.configure(state = 'normal')
-        self.deleteButton.configure(state = 'normal')
-        self.retrieveButton.configure(state = 'normal')
-        self.quitButton.configure(state = 'normal')
+        self.enable_buttons()
 
     #Retrieve Function
     def retrieve_Button(self):
@@ -450,25 +419,13 @@ class Application(Frame):
             return 0
         starttime=time.time()
         self.progressbar.start()
-        self.fileButton.configure(state = 'disable')
-        self.lockerButton.configure(state = 'disable')
-        self.insertButton.configure(state = 'disable')
-        self.insertBFileButton.configure(state = 'disable')
-        self.deleteButton.configure(state = 'disable')
-        self.retrieveButton.configure(state = 'disable')
-        self.quitButton.configure(state = 'disable')
-        retrieveBFun(name,locker+'/')
+        self.disable_buttons()
+        retrieve(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
         messagebox.showinfo('Message','Retrieve file ' + name+ ' from locker '+ locker +'\nTotal time is '+ str(totaltime) )
-        self.fileButton.configure(state = 'normal')
-        self.lockerButton.configure(state = 'normal')
-        self.insertButton.configure(state = 'normal')
-        self.insertBFileButton.configure(state = 'normal')
-        self.deleteButton.configure(state = 'normal')
-        self.retrieveButton.configure(state = 'normal')
-        self.quitButton.configure(state = 'normal')
+        self.enable_buttons()
 
     def retrieve_Binary_Button(self):
         name = self.nameInput.get() or messagebox.showerror("Error", "Please Select the File")
@@ -479,25 +436,13 @@ class Application(Frame):
             return 0
         starttime=time.time()
         self.progressbar.start()
-        self.fileButton.configure(state = 'disable')
-        self.lockerButton.configure(state = 'disable')
-        self.insertButton.configure(state = 'disable')
-        self.insertBFileButton.configure(state = 'disable')
-        self.deleteButton.configure(state = 'disable')
-        self.retrieveButton.configure(state = 'disable')
-        self.quitButton.configure(state = 'disable')
+        self.disable_buttons()
         bi_retrieve(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
         messagebox.showinfo('Message','Retrieve file ' + name+ ' from locker '+ locker +'\nTotal time is '+ str(totaltime) )
-        self.fileButton.configure(state = 'normal')
-        self.lockerButton.configure(state = 'normal')
-        self.insertButton.configure(state = 'normal')
-        self.insertBFileButton.configure(state = 'normal')
-        self.deleteButton.configure(state = 'normal')
-        self.retrieveButton.configure(state = 'normal')
-        self.quitButton.configure(state = 'normal')
+        self.enable_buttons()
 
 
 def insertbinary(filename,locker):
@@ -537,20 +482,6 @@ def insertASCII(filename,locker):
             info="{} ".format(dic[key][child])
             Inven_dic.write(str(info))
         Inven_dic.write('\n')
-
-def deleteBFun(file,path):
-    
-    # print('Inventory restored')
-    # print(dic)
-
-    # file = 'main/Lockers_binary/list_file1.txt'
-    # path = 'main/Lockers_binary'
-    dic = delete(file, path)
-
-def retrieveBFun(file,path):
-    # file = 'main/Lockers_binary/list_file1.txt'
-    # path = 'main/Lockers_binary'
-    retrieve(file, path)
 
 app = Application()
 def main():
