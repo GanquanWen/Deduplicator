@@ -14,19 +14,17 @@ The file will be splited into parts and stored in locker. A inventory file (Inve
 
 The inventory is essential for storing and deleting. And the list is essential for deleting and retrieving the corresponding file.
 
-You can use one of the example file in folder 'example'
-
-Example:
+You can use one of the sample file in folder 'sample_file'
 
 ```
 store -file file1.txt -path locker/
+store -file file2.txt -path locker/
+store -file file3.txt -path locker/
 ```
 
 ### 3. Retrieve file
 
 The retrieved file will be saved in the root folder of clui.py.
-
-Example
 
 ```
 retrieve -file file1.txt -path locker/
