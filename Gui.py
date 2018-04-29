@@ -27,7 +27,7 @@ def para_hash(string):
 #    key:hash code of this segment(filename)
 #    value:[0]location, [1]:a list contains its childs(aka raw filenames contain this paragraph)
 #This function returns a list that contains all hash code of this article
-def segment_create_dict(filename, dic, path):
+def ASCII_chunk(filename, dic, path):
     '''
     read from file
     create and renew the dictionary
@@ -67,7 +67,7 @@ def segment_create_dict(filename, dic, path):
             text_file.close()
         app.progressbar["value"] = i
         app.progressbar["maximum"] = length
-        app.change_schedule(i,length)
+        # app.change_schedule(i,length)
     #create artile list file
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
@@ -79,12 +79,15 @@ def binary_chunk(filename,dic,path):
         s = myfile.read()
     size = len(s)
     #print(size)
+    rng = size//100
+    list_rng=[rng*i for i in range(100)]
+    set_rng = set(list_rng)
     article_hash_lst = []
     if size < 100000:
         window_length = size // 100
         pattern = '101'
     else:    
-        window_length = 2000
+        window_length = size // 1000
         pattern = '010101'
     step = 1
     flag = 0 
@@ -114,9 +117,10 @@ def binary_chunk(filename,dic,path):
         else:
             flag = 0
         i += 1
-        app.progressbar["value"] = i
-        app.progressbar["maximum"] = len(s)
-        app.change_schedule(i,len(s))
+        if i in set_rng:
+            app.progressbar["value"] = i
+            app.progressbar["maximum"] = list_rng[-1]
+            app.change_schedule(i,list_rng[-1])
     article_hash_lst_filename = path+'list_'+os.path.basename(filename)
     article_hash_lst_file=open(article_hash_lst_filename,'w')
     article_hash_lst_file.write(str(article_hash_lst).strip('[').strip(']'))
@@ -188,8 +192,8 @@ class Application(Frame):
         Frame.__init__(self, master)
         self.pack()
         self.createWidgets()
-        self.thread = threading.Thread()
-        self.thread.start()
+        # self.thread = threading.Thread()
+        # self.thread.start()
     #Function to add all widgets
     def createWidgets(self):
         self.helloLabel = Label(self, text='Welcom to our Locker system!')
@@ -242,8 +246,9 @@ class Application(Frame):
         # self.canvas.coords(fill_rec, (5, 5, 6 + (now_schedule/all_schedule)*100, 25))   
         self.update()
         x.set(str(round(now_schedule/all_schedule*100,2)) + '%')  
-        if round(now_schedule/all_schedule*100,2) == 100.00:
+        if now_schedule==all_schedule:
             x.set("Finish")
+            self.canvasLabel['font']=20
     
     #Insert Function
     def insert_Button(self):
@@ -320,7 +325,7 @@ class Application(Frame):
         self.quitButton.configure(state = 'normal')
 
 def insertFile():
-    filename = 'seg_createdict_ops/binary/file3.txt'
+    filename = 'ec504_sample_file/file3.txt'
     with open(filename, 'r') as myfile:
         data = myfile.read()
     tmp = data.split('\n\n')
@@ -338,11 +343,11 @@ def insertFile():
         except:
             dic_b = {}
         dic = dic_b 
-    # segment_create_dict('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
-    # segment_create_dict('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
-    # segment_create_dict('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
+    # ASCII_chunk('seg_createdict_ops/file1.txt',dic,'seg_createdict_ops/Lockers/')
+    # ASCII_chunk('seg_createdict_ops/file2.txt',dic,'seg_createdict_ops/Lockers/')
+    # ASCII_chunk('seg_createdict_ops/file3.txt',dic,'seg_createdict_ops/Lockers/')
     #binary_chunk(filename,dic_b,'seg_createdict_ops/Lockers2/')
-    binary_chunk(filename,dic_b,'seg_createdict_ops/Lockers2/')
+    ASCII_chunk(filename,dic_a,'seg_createdict_ops/Lockers2/')
     Inven_dic=open(inv,'w')
     for key in dic:
         info="{} ".format(key)
