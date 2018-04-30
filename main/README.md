@@ -16,6 +16,7 @@ The inventory is essential for storing and deleting. And the list is for deletin
 
 You can use one of the sample file in folder 'sample_ASCII' or 'sample_binary'
 (storea for ACSII file, storeb for binary file)
+Pay attention: the '/' behind the folder name is necessary. And the path is start at the main folder. If you want to get to other folder, it should start with "./"
 
 ```
 storea -file file1.txt -path locker/
