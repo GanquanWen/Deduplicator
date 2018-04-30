@@ -1,6 +1,6 @@
 # How to use Command Line User Interface
 
-### 1. Run clui.py with Python2.7
+### 1. Run clui.py with Python3.6
 
 ```
 $ python clui.py
@@ -8,7 +8,7 @@ $ python clui.py
 
 ### 2. Store file in locker
 
-The folder 'locker' needs to be existed. 
+The folder 'locker' needs to be existed. You can create a folder for this.
 
 The file will be splited into parts and stored in locker. A inventory file (Inven_dic.txt) will be created in the same folder with the clui.py. Also, a list of all the parts that the file has will be store as list_filename.txt in locker. The original file will be removed.
 
