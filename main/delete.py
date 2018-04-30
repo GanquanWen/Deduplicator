@@ -8,7 +8,7 @@ def delete(file, path):
 	'''get the list of hash
 	   then delete every part on the list according to hash in order
 	'''
-	M = get_iven('Inven_dic.txt','')
+	M = get_iven('Inventory.txt','')
 	file_name = 'list_' + file
 
 	# f = open(path+file_name, "r")
@@ -44,7 +44,7 @@ def delete(file, path):
 	print (file + ' deleted')
 	
 	dic = M
-	Inven_dic=open('Inven_dic.txt','w')
+	Inven_dic=open('Inventory.txt','w')
 	for key in dic:
 		info="{} ".format(key)
 		Inven_dic.write(str(info))
@@ -80,13 +80,12 @@ def get_iven(file, path):
 
 
 def main():
-	dic = get_iven('Inven_dic.txt','')
 	# print('Inventory restored')
 	# print(dic)
 
-	file = 'file_c.txt'
+	file = 'file1.txt'
 	path = 'locker/'
-	dic = delete(file, path, dic)
+	dic = delete(file, path)
 	
 
 

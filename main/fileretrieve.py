@@ -16,7 +16,6 @@ def retrieve(file, path):
 	parts_list = []
 	for n in range(len(org_list)):
 		parts_list.append(org_list[n].strip("\'"))
-	print(parts_list)
 
 	'''retrieve each part of the original article by the hash
 	   connect them to make a string'''
