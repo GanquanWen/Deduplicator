@@ -10,16 +10,17 @@ $ python clui.py
 
 The folder 'locker' needs to be existed. You can create a folder for this.
 
-The file will be splited into parts and stored in locker. A inventory file (Inven_dic.txt) will be created in the same folder with the clui.py. Also, a list of all the parts that the file has will be store as list_filename.txt in locker. The original file will be removed.
+The file will be splited into parts and stored in locker. A inventory file (Inventory.txt) will be created in the same folder with the clui.py. Also, a list of all the parts that the file has will be store as list_filename.txt in locker.
 
 The inventory is essential for storing and deleting. And the list is for deleting and retrieving the corresponding file.
 
 You can use one of the sample file in folder 'sample_ASCII' or 'sample_binary'
+(storea for ACSII file, storeb for binary file)
 
 ```
-store -file file1.txt -path locker/
-store -file sample_ASCII/file2.txt -path locker/
-store -file sample_binary/file3.txt -path locker/
+storea -file file1.txt -path locker/
+storea -file sample_ASCII/file2.txt -path locker/
+storeb -file sample_binary/file3.txt -path locker/
 ```
 
 ### 3. Retrieve file
@@ -28,6 +29,7 @@ The retrieved file will be saved in the root folder of clui.py.
 
 ```
 retrieve -file file1.txt -path locker/
+retrieve -file file2.txt -path locker/
 ```
 
 ### 4. Delete file
@@ -36,6 +38,7 @@ After deleting the file, the list of the file will be removed. The parts that on
 
 ```
 delete -file file1.txt -path locker/
+delete -file file2.txt -path locker/
 ```
 
 ### 5. Exit
