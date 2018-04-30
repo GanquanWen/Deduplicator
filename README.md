@@ -50,6 +50,9 @@ Our project will implement:
 #### High-level Diagram:
 ![image](https://github.com/GanquanWen/Deduplicator/blob/master/Algorithm.PNG)
 
+#### Gui demo:
+https://youtu.be/g07wQtD40kI
+
 #### Thanks for coming!
 
 
