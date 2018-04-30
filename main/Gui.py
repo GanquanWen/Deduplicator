@@ -323,6 +323,7 @@ class Application(Frame):
         self.update()
         x.set(str(round(now_schedule/all_schedule*100,0)) + '%')  
         if now_schedule>=all_schedule:
+            app.progressbar.stop()
             x.set("Finish")
             self.canvasLabel['font']=30
     def disable_buttons(self):
@@ -417,7 +418,10 @@ class Application(Frame):
         starttime=time.time()
         self.progressbar.start()
         self.disable_buttons()
-        retrieve(name,locker+'/')
+        try:
+            retrieve(name,locker+'/')
+        except:
+            messagebox.showerror("Error","Please select the correct file and path")
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
