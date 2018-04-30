@@ -238,7 +238,7 @@ def delete(file, path):
     size = len(parts_list)
     tt = timeinterval(size)
     rng = size//tt
-    list_rng=[rng*i for i in range(tt+1)]\
+    list_rng=[rng*i for i in range(tt+1)]
     fre=0
     j=0
     #
