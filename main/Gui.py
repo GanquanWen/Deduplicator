@@ -359,6 +359,7 @@ class Application(Frame):
             insertbinary(name,locker+'/')
         except:
             messagebox.showerror("Error","Please select the correct file and path")
+            return 0
         # insertbinary(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
@@ -381,6 +382,7 @@ class Application(Frame):
             insertASCII(name,locker+'/')
         except:
             messagebox.showerror("Error","Please select the correct file and path")
+            return 0
         # insertASCII(name,locker+'/')
         self.progressbar.start()
         self.progressbar.stop()
@@ -408,6 +410,7 @@ class Application(Frame):
             delete(name,locker+'/')
         except:
             messagebox.showerror("Error","Please select the correct file and path")
+            return 0
         # delete(name,locker+'/')
         self.progressbar.stop()
         endtime = time.time()
@@ -458,6 +461,7 @@ class Application(Frame):
             bi_retrieve(name,locker+'/')
         except:
             messagebox.showerror("Error","Please select the correct file and path")
+            return 0
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
