@@ -414,9 +414,9 @@ class Application(Frame):
             delete(name,locker+'/')
         except:
             messagebox.showerror("Error","Please select the correct file and path")
-            return 0
             self.progressbar.stop()
             self.enable_buttons()
+            return 0
         # delete(name,locker+'/')
         self.progressbar.stop()
         endtime = time.time()
