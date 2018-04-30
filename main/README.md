@@ -8,18 +8,18 @@ $ python clui.py
 
 ### 2. Store file in locker
 
-The folder 'locker' needs to be existed. The file to be stored needs to be in the same folder with the clui.py
+The folder 'locker' needs to be existed. 
 
 The file will be splited into parts and stored in locker. A inventory file (Inven_dic.txt) will be created in the same folder with the clui.py. Also, a list of all the parts that the file has will be store as list_filename.txt in locker. The original file will be removed.
 
-The inventory is essential for storing and deleting. And the list is essential for deleting and retrieving the corresponding file.
+The inventory is essential for storing and deleting. And the list is for deleting and retrieving the corresponding file.
 
-You can use one of the sample file in folder 'sample_file'
+You can use one of the sample file in folder 'sample_ASCII' or 'sample_binary'
 
 ```
 store -file file1.txt -path locker/
-store -file file2.txt -path locker/
-store -file file3.txt -path locker/
+store -file sample_ASCII/file2.txt -path locker/
+store -file sample_binary/file3.txt -path locker/
 ```
 
 ### 3. Retrieve file

@@ -38,24 +38,28 @@ def main():
 		elif command[0] == 'storea':
 			try:
 				insert.insertASCII(command[2],command[4])
+				print(command[2] + ' is stored in ' + command[4] + ' successfully.')
 			except:
 				print('Incorrect file or path.')
 
 		elif command[0] == 'storeb':
 			try:
 				insert.insertbinary(command[2],command[4])
+				print(command[2] + ' is stored in ' + command[4] + ' successfully.')
 			except:
 				print('Incorrect file or path.')
 
 		elif command[0] == 'delete':
 			try:
 				delete.delete(command[2],command[4])
+				print(command[2] + ' is deleted successfully.')
 			except:
 				print('Incorrect file or path.')
 
 		elif command[0] == 'retrieve':
 			try:
 				fileretrieve.retrieve(command[2],command[4])
+				print(command[2] + ' is retrieved successfully.')
 			except:
 				print('Incorrect file or path.')
 
