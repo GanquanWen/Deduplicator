@@ -49,3 +49,7 @@ Input 'exit' to stop the program.
 ```
 exit
 ```
+
+# Video Demo of Command Line User Interface
+
+* (https://youtu.be/R8zm1WjIiHk)
