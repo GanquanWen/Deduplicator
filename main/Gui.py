@@ -283,9 +283,9 @@ class Application(Frame):
         self.fileButton.grid(row = 2, column = 0)
         self.lockerButton = Button(self, text='Select Locker',command = self.choose_Locker)
         self.lockerButton.grid(row = 4, column = 0)
-        self.insertButton = Button(self, text='Insert ASCII File', command=self.insert_Button)
+        self.insertButton = Button(self, text='Store ASCII File', command=self.insert_Button)
         self.insertButton.grid(row = 5,column = 0)
-        self.insertBFileButton = Button(self, text='Insert Binary File', command=self.insert_Binary_Button)
+        self.insertBFileButton = Button(self, text='Store Binary File', command=self.insert_Binary_Button)
         self.insertBFileButton.grid(row = 5,column = 1)
         self.retrieveAButton = Button(self, text='Retrieve ACSCII File', command=self.retrieve_Button)
         self.retrieveAButton.grid(row = 6,column = 0)
@@ -355,11 +355,15 @@ class Application(Frame):
         starttime=time.time()
         self.progressbar.start()
         self.disable_buttons()
-        insertbinary(name,locker+'/')
+        try:
+            insertbinary(name,locker+'/')
+        except:
+            messagebox.showerror("Error","Please select the correct file and path")
+        # insertbinary(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
-        messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
+        messagebox.showinfo('Message', 'Store file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
         self.enable_buttons()
 
     #Insert Function
@@ -373,12 +377,16 @@ class Application(Frame):
         starttime=time.time()
         self.progressbar.start()
         self.disable_buttons()
-        insertASCII(name,locker+'/')
+        try:
+            insertASCII(name,locker+'/')
+        except:
+            messagebox.showerror("Error","Please select the correct file and path")
+        # insertASCII(name,locker+'/')
         self.progressbar.start()
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime - starttime
-        messagebox.showinfo('Message', 'Insert file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
+        messagebox.showinfo('Message', 'Store file '+ name + ' to locker '+ locker +'\nTotal time is '+ str(totaltime))
         self.enable_buttons()
     
     #Delete Function
@@ -396,7 +404,11 @@ class Application(Frame):
         starttime = time.time()
         self.progressbar.start()
         self.disable_buttons()
-        delete(name,locker+'/')
+        try:
+            delete(name,locker+'/')
+        except:
+            messagebox.showerror("Error","Please select the correct file and path")
+        # delete(name,locker+'/')
         self.progressbar.stop()
         endtime = time.time()
         totaltime = endtime - starttime
@@ -442,7 +454,10 @@ class Application(Frame):
         starttime=time.time()
         self.progressbar.start()
         self.disable_buttons()
-        bi_retrieve(name,locker+'/')
+        try:
+            bi_retrieve(name,locker+'/')
+        except:
+            messagebox.showerror("Error","Please select the correct file and path")
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
