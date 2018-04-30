@@ -200,7 +200,8 @@ def retrieve(file, path):
     '''store the article as txt file'''
     file_name_split = file.split('/')
     file_name = file_name_split[-1].lstrip('list_')
-    output_file = open(file_name+'_retrieved', "w")
+    file_name = file_name.rstrip('.txt')
+    output_file = open(file_name+'_retrieved.txt', "w")
     output_file.write(original_file)
     output_file.close()
     return original_file
@@ -244,7 +245,8 @@ def bi_retrieve(file, path):
     '''store the article as txt file'''
     file_name_split = file.split('/')
     file_name = file_name_split[-1].lstrip('list_')
-    output_file = open(file_name+'_retrieved', "w")
+    file_name = file_name.rstrip('.txt')
+    output_file = open(file_name+'_retrieved.txt', "w")
     output_file.write(original_file)
     output_file.close()
     return original_file
