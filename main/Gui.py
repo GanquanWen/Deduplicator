@@ -173,6 +173,14 @@ def retrieve(file, path):
         parts_list.append(org_list[n].strip("\'"))
     '''retrieve each part of the original article by the hash
        connect them to make a string'''
+    #
+    size = len(parts_list)
+    tt = timeinterval(size)
+    rng = size//tt
+    list_rng=[rng*i for i in range(tt+1)]
+    fre=0
+    j=0
+    #
     original_file = ""
     for i in range(len(parts_list)):
         part_file = open(path+parts_list[i]+'.txt', "r")
@@ -183,10 +191,16 @@ def retrieve(file, path):
         if i < len(parts_list)-1:
             original_file += '\n\n'  # adding a blank line between each part
         part_file.close()
+        fre+=1
+        if fre >=list_rng[j]:
+            j+=1
+            app.progressbar["value"] = fre
+            app.progressbar["maximum"] = list_rng[-2]
+            app.change_schedule(fre,list_rng[-2])
     '''store the article as txt file'''
     file_name_split = file.split('/')
     file_name = file_name_split[-1].lstrip('list_')
-    output_file = open(file_name, "w")
+    output_file = open(file_name+'_retrieved', "w")
     output_file.write(original_file)
     output_file.close()
     return original_file
@@ -204,6 +218,14 @@ def bi_retrieve(file, path):
         parts_list.append(org_list[n].strip("\'"))
     '''retrieve each part of the original article by the hash
        connect them to make a string'''
+    #
+    size = len(parts_list)
+    tt = timeinterval(size)
+    rng = size//tt
+    list_rng=[rng*i for i in range(tt+1)]
+    fre=0
+    j=0
+    #
     original_file = ""
     for i in range(len(parts_list)):
         part_file = open(path+parts_list[i]+'.txt', "r")
@@ -212,10 +234,17 @@ def bi_retrieve(file, path):
             original_file += line
             line = part_file.readline()
         part_file.close()
+        fre+=1
+        if fre >=list_rng[j]:
+            j+=1
+            app.progressbar["value"] = fre
+            app.progressbar["maximum"] = list_rng[-2]
+            app.change_schedule(fre,list_rng[-2])
+
     '''store the article as txt file'''
     file_name_split = file.split('/')
     file_name = file_name_split[-1].lstrip('list_')
-    output_file = open(file_name, "w")
+    output_file = open(file_name+'_retrieved', "w")
     output_file.write(original_file)
     output_file.close()
     return original_file
@@ -278,8 +307,8 @@ class Application(Frame):
         Frame.__init__(self, master)
         self.pack()
         self.createWidgets()
-        # self.thread = threading.Thread()
-        # self.thread.start()
+        self.thread = threading.Thread()
+        self.thread.start()
     #Function to add all widgets
     def createWidgets(self):
         self.helloLabel = Label(self, text='Welcom to our Locker system!')
