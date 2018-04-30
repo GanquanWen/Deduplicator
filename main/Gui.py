@@ -94,7 +94,6 @@ def binary_chunk(filename,dic,path):
     tt = timeinterval(size)
     rng = size//tt
     list_rng=[rng*i for i in range(tt+1)]
-    set_rng = set(list_rng)
     article_hash_lst = []
     if size < 100000:
         window_length = size // 100
@@ -235,6 +234,14 @@ def delete(file, path):
     parts_list = []
     for n in range(len(org_list)):
         parts_list.append(org_list[n].strip("\'"))
+    #
+    size = len(parts_list)
+    tt = timeinterval(size)
+    rng = size//tt
+    list_rng=[rng*i for i in range(tt+1)]\
+    fre=0
+    j=0
+    #
     for part in parts_list:
         if part in M:
             if len(M[part]) == 1:
@@ -246,6 +253,12 @@ def delete(file, path):
                     M[part].remove(file_name)
         else:
             continue
+        fre+=1
+        if fre >=list_rng[j]:
+            j+=1
+            app.progressbar["value"] = fre
+            app.progressbar["maximum"] = list_rng[-2]
+            app.change_schedule(fre,list_rng[-2]) 
     os.remove(file)
     print (file + ' deleted')
     dic = M
