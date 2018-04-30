@@ -360,6 +360,8 @@ class Application(Frame):
         except:
             messagebox.showerror("Error","Please select the correct file and path")
             return 0
+            self.progressbar.stop()
+            self.enable_buttons()
         # insertbinary(name,locker+'/')
         self.progressbar.stop()
         endtime=time.time()
@@ -383,6 +385,8 @@ class Application(Frame):
         except:
             messagebox.showerror("Error","Please select the correct file and path")
             return 0
+            self.progressbar.stop()
+            self.enable_buttons()
         # insertASCII(name,locker+'/')
         self.progressbar.start()
         self.progressbar.stop()
@@ -411,6 +415,8 @@ class Application(Frame):
         except:
             messagebox.showerror("Error","Please select the correct file and path")
             return 0
+            self.progressbar.stop()
+            self.enable_buttons()
         # delete(name,locker+'/')
         self.progressbar.stop()
         endtime = time.time()
@@ -437,6 +443,9 @@ class Application(Frame):
             retrieve(name,locker+'/')
         except:
             messagebox.showerror("Error","Please select the correct file and path")
+            return 0
+            self.progressbar.stop()
+            self.enable_buttons()
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
@@ -462,6 +471,8 @@ class Application(Frame):
         except:
             messagebox.showerror("Error","Please select the correct file and path")
             return 0
+            self.progressbar.stop()
+            self.enable_buttons()
         self.progressbar.stop()
         endtime=time.time()
         totaltime = endtime-starttime
