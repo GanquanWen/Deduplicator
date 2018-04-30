@@ -122,7 +122,6 @@ def get_iven(file, path):
     inventory = {}
     for i in range(len(parts_list)):
         parts_list[i] = parts_list[i].split()
-        print(parts_list[i])
         inventory[parts_list[i][0]] = []
         for k in range(1, len(parts_list[i])):
             inventory[parts_list[i][0]].append(parts_list[i][k])

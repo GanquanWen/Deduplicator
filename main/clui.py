@@ -12,11 +12,6 @@ def cli(cmd):
 	command = cmd.split()
 	return command
 
-	
-def store(file, path):
-	return None
- 
-
 def main():
 	while True:
 		'''read the command line from stdin and split it.
@@ -35,26 +30,35 @@ def main():
 		'''Judge if the command is valid.'''
 		if command == ['exit']:
 			return None
+
 		elif len(command) != 5:
 			print('Incorrect input format!')
 			continue
-		elif command[0] == 'store':
+
+		elif command[0] == 'storea':
 			try:
-				store(command[2],command[4])
+				insert.insertASCII(command[2],command[4])
 			except:
 				print('Incorrect file or path.')
+
+		elif command[0] == 'storeb':
+			try:
+				insert.insertbinary(command[2],command[4])
+			except:
+				print('Incorrect file or path.')
+
 		elif command[0] == 'delete':
 			try:
 				delete.delete(command[2],command[4])
 			except:
 				print('Incorrect file or path.')
+
 		elif command[0] == 'retrieve':
 			try:
 				fileretrieve.retrieve(command[2],command[4])
 			except:
 				print('Incorrect file or path.')
-		elif command[0] == 'insert':
-			pass
+
 		else:
 			print('Illegal command!(legal commands are: store; delete; retrieve.)')
 	return None
