@@ -23,11 +23,14 @@ def main():
 		[0] is the command;
 		[2] is the name of the file;
 		[4] is the path to the locker.'''
+		print('\n')
 		print ('Format of Input: command -file "filename" -path "path_to_locker"')
 		print ('(no space in "filename" and "path_to_locker")')
+		print ('Input "exit" to stop the program')
+		print('')
 		command = sys.stdin.readline()
 		command = cli(command)
-		print (command)
+		print('')
 
 		'''Judge if the command is valid.'''
 		if command == ['exit']:
@@ -36,11 +39,20 @@ def main():
 			print('Incorrect input format!')
 			continue
 		elif command[0] == 'store':
-			store(command[2],command[4])
+			try:
+				store(command[2],command[4])
+			except:
+				print('Incorrect file or path.')
 		elif command[0] == 'delete':
-			delete.delete(command[2],command[4])
+			try:
+				delete.delete(command[2],command[4])
+			except:
+				print('Incorrect file or path.')
 		elif command[0] == 'retrieve':
-			fileretrieve.retrieve(command[2],command[4])
+			try:
+				fileretrieve.retrieve(command[2],command[4])
+			except:
+				print('Incorrect file or path.')
 		elif command[0] == 'insert':
 			pass
 		else:
