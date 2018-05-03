@@ -19,7 +19,7 @@
   
 ## Project Description :
 
-The final program is in folder ***main***, please check the readme in main for details.
+The final program is in folder [***main***](/main), please check the readme in main for details.
 
 Other folders are for each function.
 
