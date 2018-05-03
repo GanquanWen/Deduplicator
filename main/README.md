@@ -1,8 +1,14 @@
-# 
-[Command line User Interface](#how-to-use-command-line-user-interface)
-[Command line User Interface video demo](#video-demo-of-command-line-user-interface)
-[Graphical User Interface](#how-to-use-graphical-user-interface)
-[Graphical User Interface video demo](#video-demo-of-graphical-user-interface)
+# Usage Introduction
+This is the usage introduction of our program, this introduction contains following parts.
+
+1. [Command line User Interface](#how-to-use-command-line-user-interface)
+
+2. [Command line User Interface video demo](#video-demo-of-command-line-user-interface)
+
+3. [Graphical User Interface](#how-to-use-graphical-user-interface)
+
+4. [Graphical User Interface video demo](#video-demo-of-graphical-user-interface)
+
 # How to use Command Line User Interface
 
 ### 1. Run clui.py with Python3.6
