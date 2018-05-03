@@ -6,6 +6,9 @@
 $ python clui.py
 ```
 
+/Users/xiangzheng/Desktop/Screen Shot 2018-05-03 at 1.31.58 PM.png
+
+
 ### 2. Store file in locker
 
 The folder 'locker' needs to be existed. You can create a folder for this.
