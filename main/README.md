@@ -6,8 +6,6 @@
 $ python clui.py
 ```
 
-/Users/xiangzheng/Desktop/Screen Shot 2018-05-03 at 1.31.58 PM.png
-
 
 ### 2. Store file in locker
 
@@ -86,34 +84,28 @@ You can use one of the sample file in folder 'sample_ASCII' or 'sample_binary'.
 
 #### 1. To retrieve the file, first press select file button to select the list file list_filename in the locker.
 
-#### 2. Then select the locker (floder) that you want to save the file.
+#### 2. Then select the locker (floder) that the file is saved.
 
 #### 3. Click the button with the corresponding type.
 
 The retrieved file will be saved in the root folder of Gui.py.
 
-```
-retrieve -file file1.txt -path locker/
-retrieve -file file2.txt -path locker/
-```
-
 ### 4. Delete file
+
+#### 1. To delete the file, first press select file button to select the list file list_filename in the locker.
+
+#### 2. Then select the locker (floder) that the file is saved.
+
+#### 3. Click the button to delete the file.
 
 After deleting the file, the list of the file will be removed. The parts that only be used by the file will be removed from locker. And the inventory will be updated.
 
-```
-delete -file file1.txt -path locker/
-delete -file file2.txt -path locker/
-```
+
 
 ### 5. Exit
 
-Input 'exit' to stop the program.
+Click Quit button to exit the program.
 
-```
-exit
-```
-
-# Video Demo of Command Line User Interface
+# Video Demo of Graphical User Interface
 
 * (https://youtu.be/R8zm1WjIiHk)
