@@ -5,7 +5,7 @@
 ```
 $ python clui.py
 ```
-/Deduplicator/picture/store/create a locker.png
+![image](Deduplicator/picture/store/create a locker.png)
 
 ### 2. Store file in locker
 
