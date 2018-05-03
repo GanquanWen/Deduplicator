@@ -117,4 +117,4 @@ Click Quit button to exit the program.
 
 # Video Demo of Graphical User Interface
 
-* (https://youtu.be/R8zm1WjIiHk)
+* (https://youtu.be/g07wQtD40kI)
