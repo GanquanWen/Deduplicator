@@ -21,7 +21,7 @@
 
 The final program is in folder [***main***](/main), please check the readme in main for details. Unit test is included in main as well.
 
-[***final report***](final-report) and [***work breakdown***](work-breakdown)
+[***final report***](https://github.com/GanquanWen/Deduplicator/blob/master/Final%20Report.pdf) and [***work breakdown***](https://github.com/GanquanWen/Deduplicator/blob/master/Work_Breakdown.pdf)
 
 Other folders are for each function.
 
