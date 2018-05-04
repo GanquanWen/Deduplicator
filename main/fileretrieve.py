@@ -27,8 +27,8 @@ def retrieve(file, path):
 		while line:
 			original_file += line
 			line = part_file.readline()
-		if i < len(parts_list)-1:
-			original_file += '\n\n'  # adding a blank line between each part
+		# if i < len(parts_list)-1:
+		# 	original_file += '\n\n'  # adding a blank line between each part
 		part_file.close()
 
 	'''store the article as txt file'''
